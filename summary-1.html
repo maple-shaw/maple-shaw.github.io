@@ -86,17 +86,17 @@
 
 
 
-<meta name="description" content="字符串 定义：它是一个有序的字符的集合，用于存储和表示基本的文本信息，‘’或“”或’’’ ‘’’中间包含的内容称之为字符串。 创建：res=’ hello world ‘  常用操作：  res.strip()     移除字符串两端的空白 res.split(sep=None)        以sep为分割符，分割字符串，返回列表 res[4],res[1:4]    索引取值，切片    字符">
+<meta name="description" content="字符串定义它是一个有序的字符的集合，用于存储和表示基本的文本信息，‘’或“”或’’’ ‘’’中间包含的内容称之为字符串。 创建res=’ hello world ‘  常用操作  res.strip()     移除字符串两端的空白 res.split(sep=None)        以sep为分割符，分割字符串，返回列表 res[4],res[1:4]    索引取值，切片   字符串的搜索和">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python基本数据结构">
 <meta property="og:url" content="http://mapleshaw.cn/summary-1.html">
 <meta property="og:site_name" content="maple-shaw">
-<meta property="og:description" content="字符串 定义：它是一个有序的字符的集合，用于存储和表示基本的文本信息，‘’或“”或’’’ ‘’’中间包含的内容称之为字符串。 创建：res=’ hello world ‘  常用操作：  res.strip()     移除字符串两端的空白 res.split(sep=None)        以sep为分割符，分割字符串，返回列表 res[4],res[1:4]    索引取值，切片    字符">
+<meta property="og:description" content="字符串定义它是一个有序的字符的集合，用于存储和表示基本的文本信息，‘’或“”或’’’ ‘’’中间包含的内容称之为字符串。 创建res=’ hello world ‘  常用操作  res.strip()     移除字符串两端的空白 res.split(sep=None)        以sep为分割符，分割字符串，返回列表 res[4],res[1:4]    索引取值，切片   字符串的搜索和">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-18T12:03:58.200Z">
+<meta property="og:updated_time" content="2017-11-18T13:07:45.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python基本数据结构">
-<meta name="twitter:description" content="字符串 定义：它是一个有序的字符的集合，用于存储和表示基本的文本信息，‘’或“”或’’’ ‘’’中间包含的内容称之为字符串。 创建：res=’ hello world ‘  常用操作：  res.strip()     移除字符串两端的空白 res.split(sep=None)        以sep为分割符，分割字符串，返回列表 res[4],res[1:4]    索引取值，切片    字符">
+<meta name="twitter:description" content="字符串定义它是一个有序的字符的集合，用于存储和表示基本的文本信息，‘’或“”或’’’ ‘’’中间包含的内容称之为字符串。 创建res=’ hello world ‘  常用操作  res.strip()     移除字符串两端的空白 res.split(sep=None)        以sep为分割符，分割字符串，返回列表 res[4],res[1:4]    索引取值，切片   字符串的搜索和">
 
 
 
@@ -358,50 +358,64 @@
       
 
       
-        <h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><ol>
-<li>定义：它是一个有序的字符的集合，用于存储和表示基本的文本信息，‘’或“”或’’’ ‘’’中间包含的内容称之为字符串。</li>
-<li>创建：res=’ hello world ‘ </li>
-<li>常用操作：<blockquote>
+        <h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>它是一个有序的字符的集合，用于存储和表示基本的文本信息，‘’或“”或’’’ ‘’’中间包含的内容称之为字符串。</p>
+<h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><p>res=’ hello world ‘ </p>
+<h4 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h4><blockquote>
 <ul>
 <li>res.strip()     移除字符串两端的空白</li>
 <li>res.split(sep=None)        以sep为分割符，分割字符串，返回列表</li>
 <li>res[4],res[1:4]    索引取值，切片</li>
 </ul>
 </blockquote>
-</li>
-<li>字符串的搜索和替换<blockquote>
+<h4 id="字符串的搜索和替换"><a href="#字符串的搜索和替换" class="headerlink" title="字符串的搜索和替换"></a>字符串的搜索和替换</h4><blockquote>
 <p>S.find(substr, [start, [end]]) &emsp;&emsp;返回S中出现substr的第一个字母的标号，如果S中没有substr则返回-1。start和end作用就相当于在S[start:end]中搜索<br>S.index(substr, [start, [end]]) &emsp;&emsp;与find()相同，只是在S中没有substr时，会返回一个运行时错误<br>S.rfind(substr, [start, [end]]) &emsp;&emsp;返回S中最后出现的substr的第一个字母的标号，如果S中没有substr则返回-1，也就是说从右边算起的第一次出现的substr的首字母标号<br>S.rindex(substr, [start, [end]])<br>S.count(substr, [start, [end]]) &emsp;&emsp;计算substr在S中出现的次数<br>S.replace(oldstr, newstr, [count]) &emsp;&emsp;把S中的oldstr替换为newstr，count为替换次数。这是替换的通用形式，还有一些函数进行特殊字符的替换<br>S.strip([chars]) &emsp;&emsp;把S中前后chars中有的字符全部去掉，可以理解为把S前后chars替换为None<br>S.lstrip([chars]) &emsp;&emsp;把S中前chars中有的字符去掉<br>S.rstrip([chars]) &emsp;&emsp;把S中后chars中有的字符全部去掉<br>S.expandtabs([tabsize] &emsp;&emsp;把S中的tab字符替换没空格，每个tab替换为tabsize个空格，默认是8个</p>
 </blockquote>
-</li>
-<li>字符串的分割和组合<blockquote>
+<h4 id="字符串的分割和组合"><a href="#字符串的分割和组合" class="headerlink" title="字符串的分割和组合"></a>字符串的分割和组合</h4><blockquote>
 <p>S.split([sep, [maxsplit]])　　 #以sep为分隔符，把S分成一个list。maxsplit表示分割的次数。默认的分割符为空白字符<br>S.rsplit([sep, [maxsplit]])<br>S.splitlines([keepends]) 　　#把S按照行分割符分为一个list，keepends是一个bool值，如果为真每行后而会保留行分割符。<br>S.join(seq)　　 #把seq代表的序列──字符串序列，用S连接起来字符串的mapping，这一功能包含两个函数：<br>String.maketrans(from, to) 　　#返回一个256个字符组成的翻译表，其中from中的字符被一一对应地转换成to，所以from和to必须是等长的。<br>S.translate(table[,deletechars])　　 # 使用上面的函数产后的翻译表，把S进行翻译，并把deletechars中有的字符删掉。需要注意的是，如果S为unicode字符串，那么就不支持 deletechars参数，可以使用把某个字符翻译为None的方式实现相同的功能。此外还可以使用codecs模块的功能来创建更加功能强大的翻译 表。</p>
 </blockquote>
-</li>
-<li>字符串中字符大小写的变换<blockquote>
+<h4 id="字符串中字符大小写的变换"><a href="#字符串中字符大小写的变换" class="headerlink" title="字符串中字符大小写的变换"></a>字符串中字符大小写的变换</h4><blockquote>
 <p>S.lower()  　　 #小写<br>S.upper()   　　#大写<br>S.swapcase() 　　  #大小写互换<br>S.capitalize()  　　 #首字母大写<br>String.capwords(S)  　　#这是模块中的方法。它把S用split()函数分开，然后用capitalize()把首字母变成大写，最后用join()合并到一起<br>S.title()   　　 #只有首字母大写，其余为小写，模块中没有这个方法</p>
 </blockquote>
-</li>
-<li>字符串的测试函数，返回布尔值<blockquote>
+<h4 id="字符串的测试函数，返回布尔值"><a href="#字符串的测试函数，返回布尔值" class="headerlink" title="字符串的测试函数，返回布尔值"></a>字符串的测试函数，返回布尔值</h4><blockquote>
 <p>S.starstwith(prefix[,start[,end]]) 　　#是否以prefix开头<br>S.endswith(suffix[,start[,end]])　　  #以suffix结尾<br>S.isalnum() 　　 #是否全是字母和数字，并至少有一个字符<br>S.isalpha() 　　 #是否全是字母，并至少有一个字符<br>S.isdigit() 　　 #是否全是数字，并至少有一个字符<br>S.isspace()　　 #是否全是空白字符，并至少有一个字符<br>S.islower() 　　#S中的字母是否全是小写<br>S.isupper() 　　#S中的字母是否便是大写<br>S.istitle() 　　#S是否是首字母大写的</p>
 </blockquote>
-</li>
-<li>字符串对齐输出<blockquote>
+<h4 id="字符串对齐输出"><a href="#字符串对齐输出" class="headerlink" title="字符串对齐输出"></a>字符串对齐输出</h4><blockquote>
 <p>S.ljust(width,[fillchar])   　　#输出width个字符，S左对齐，不足部分用fillchar填充，默认的为空格。<br>S.rjust(width,[fillchar])   　　 #右对齐<br>S.center(width, [fillchar])  　　  #中间对齐<br>S.zfill(width)   　　#把S变成width长，并在右对齐，不足部分用0补足</p>
 </blockquote>
-</li>
-</ol>
-<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><ol>
-<li>定义：[]内以逗号分隔，按照索引，存放各种数据类型，每个位置代表一个元素。</li>
-<li>特性：<blockquote>
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p>[]内以逗号分隔，按照索引，存放各种数据类型，每个位置代表一个元素。</p>
+<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><blockquote>
 <ul>
-<li>可以存放多个值。</li>
+<li>可以存放多个值。<ul>
 <li>可以修改指定索引位置对应的值，可变类型。</li>
 <li>按照从左到右的顺序定义列表元素，下标从0开始顺序访问，有序。</li>
 </ul>
-</blockquote>
 </li>
-</ol>
-
+</ul>
+</blockquote>
+<h4 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h4><p>list_test=[‘hello’,12,(1,3,)]  list_test=list(‘abc’)  list_test=list([‘lhf’,12,’ok’])</p>
+<h4 id="常用操作-1"><a href="#常用操作-1" class="headerlink" title="常用操作"></a>常用操作</h4><blockquote>
+<p>classmates = [‘Michael’, ‘Bob’, ‘Tracy’]</p>
+<ul>
+<li>索引    classmates[0]</li>
+<li>切片    classmates[0:]  　　 classmates[0::2]  　　  classmates[2::-1]</li>
+<li>追加    classmates.append(‘Adam’)  　　 classmates.insert(1, ‘Jack’)</li>
+<li>删除    classmates.pop()   　　  classmates.remove(‘Adam’)</li>
+</ul>
+</blockquote>
+<h4 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h4><p>.copy()　　　 复制<br>.append()　　在列表后增加元素<br>.insert()　　  在索引号前增加元素<br>.pop()　　     默认从后面删除元素<br>.remove()　　按照元素进行删除<br>.index()　　　按照元素进行查找<br>.clear()　　    清楚列表元素，原列表为空<br>.count()　　  查找元素的个数<br>.extend([1,2,3]) 　　 扩展列表，将[1,2,3]列表和原列表合成一个列表<br>.reverse()　　将列表进行倒序<br>.sort()　　　　将列表中的元素按顺序排列。字符串和数字不能同时排序。.sort(reverse=True)倒序排列。</p>
+<h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><h4 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h4><p>与列表类似，将[]该为（）</p>
+<h4 id="特性-1"><a href="#特性-1" class="headerlink" title="特性"></a>特性</h4><p>可存多个值，不可变，有序。</p>
+<h4 id="创建-2"><a href="#创建-2" class="headerlink" title="创建"></a>创建</h4><p>t=() 　　t=tuple([11,22,33])　　t=(1,)　　 t=(1,2,[3,4])</p>
+<h4 id="常用操作-2"><a href="#常用操作-2" class="headerlink" title="常用操作"></a>常用操作</h4><blockquote>
+<p>ages = (11, 22, 33, 44, 55)</p>
+<ul>
+<li>索引   ages[0]</li>
+<li>切片   ages[0:]  　　  ages[-3:-1] 　　 ages[:3]</li>
+<li>循环    for i in ages：print(i)</li>
+<li>成员判断     11 in ages  #True</li>
+</ul>
+</blockquote>
+<h4 id="常用函数-1"><a href="#常用函数-1" class="headerlink" title="常用函数"></a>常用函数</h4>
       
     </div>
     
@@ -562,7 +576,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">1.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表"><span class="nav-number">2.</span> <span class="nav-text">列表</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">1.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建"><span class="nav-number">1.2.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用操作"><span class="nav-number">1.3.</span> <span class="nav-text">常用操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串的搜索和替换"><span class="nav-number">1.4.</span> <span class="nav-text">字符串的搜索和替换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串的分割和组合"><span class="nav-number">1.5.</span> <span class="nav-text">字符串的分割和组合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串中字符大小写的变换"><span class="nav-number">1.6.</span> <span class="nav-text">字符串中字符大小写的变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串的测试函数，返回布尔值"><span class="nav-number">1.7.</span> <span class="nav-text">字符串的测试函数，返回布尔值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串对齐输出"><span class="nav-number">1.8.</span> <span class="nav-text">字符串对齐输出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表"><span class="nav-number">2.</span> <span class="nav-text">列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-1"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特性"><span class="nav-number">2.2.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-1"><span class="nav-number">2.3.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用操作-1"><span class="nav-number">2.4.</span> <span class="nav-text">常用操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用函数"><span class="nav-number">2.5.</span> <span class="nav-text">常用函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元组"><span class="nav-number">3.</span> <span class="nav-text">元组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-2"><span class="nav-number">3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特性-1"><span class="nav-number">3.2.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-2"><span class="nav-number">3.3.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用操作-2"><span class="nav-number">3.4.</span> <span class="nav-text">常用操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用函数-1"><span class="nav-number">3.5.</span> <span class="nav-text">常用函数</span></a></li></ol></li></ol></div>
             
 
           </div>
