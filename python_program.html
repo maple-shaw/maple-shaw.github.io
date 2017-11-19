@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-simple.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="星号输出图形菱形123456789&quot;&quot;&quot;   *  *** ************ *****  ***   *&quot;&quot;&quot; 123456789101112131415161718192021222324# 方法一：row = 7s = &apos;*&apos;num = [2 * i + 1 if 2 * i + 1 &amp;lt;= row else 2 * (row - i) - 1 for i in range(ro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python编程练习">
+<meta property="og:url" content="http://mapleshaw.cn/python_program.html">
+<meta property="og:site_name" content="maple-shaw">
+<meta property="og:description" content="星号输出图形菱形123456789&quot;&quot;&quot;   *  *** ************ *****  ***   *&quot;&quot;&quot; 123456789101112131415161718192021222324# 方法一：row = 7s = &apos;*&apos;num = [2 * i + 1 if 2 * i + 1 &amp;lt;= row else 2 * (row - i) - 1 for i in range(ro">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-19T09:20:48.565Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python编程练习">
+<meta name="twitter:description" content="星号输出图形菱形123456789&quot;&quot;&quot;   *  *** ************ *****  ***   *&quot;&quot;&quot; 123456789101112131415161718192021222324# 方法一：row = 7s = &apos;*&apos;num = [2 * i + 1 if 2 * i + 1 &amp;lt;= row else 2 * (row - i) - 1 for i in range(ro">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://mapleshaw.cn/python_program.html"/>
+
+
+
+
+
+  <title>Python编程练习 | maple-shaw</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">maple-shaw</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mapleshaw.cn/python_program.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maple Shaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="maple-shaw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python编程练习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-17T12:13:33+08:00">
+                2017-11-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试汇总/" itemprop="url" rel="index">
+                    <span itemprop="name">面试汇总</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="星号输出图形"><a href="#星号输出图形" class="headerlink" title="星号输出图形"></a>星号输出图形</h3><h4 id="菱形"><a href="#菱形" class="headerlink" title="菱形"></a>菱形</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">   *</span></span><br><span class="line"><span class="string">  ***</span></span><br><span class="line"><span class="string"> *****</span></span><br><span class="line"><span class="string">*******</span></span><br><span class="line"><span class="string"> *****</span></span><br><span class="line"><span class="string">  ***</span></span><br><span class="line"><span class="string">   *</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方法一：</span></span><br><span class="line">row = <span class="number">7</span></span><br><span class="line">s = <span class="string">'*'</span></span><br><span class="line">num = [<span class="number">2</span> * i + <span class="number">1</span> <span class="keyword">if</span> <span class="number">2</span> * i + <span class="number">1</span> &lt;= row <span class="keyword">else</span> <span class="number">2</span> * (row - i) - <span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(row)]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> num:</span><br><span class="line">    print((s*i).center(row))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法二：</span></span><br><span class="line">row = <span class="number">7</span></span><br><span class="line">s = <span class="string">'*'</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, row + <span class="number">1</span>, <span class="number">2</span>):</span><br><span class="line">    t = (row - i) // <span class="number">2</span></span><br><span class="line">    print(<span class="string">' '</span> * t + s * i)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> reversed(range(<span class="number">1</span>, row - <span class="number">1</span>, <span class="number">2</span>)):</span><br><span class="line">    t = (row - i) // <span class="number">2</span></span><br><span class="line">    print(<span class="string">' '</span> * t + s * i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法三：</span></span><br><span class="line">row = <span class="number">7</span></span><br><span class="line">s = <span class="string">'*'</span></span><br><span class="line">num = [<span class="number">2</span> * i + <span class="number">1</span> <span class="keyword">if</span> <span class="number">2</span> * i + <span class="number">1</span> &lt;= row <span class="keyword">else</span> <span class="number">2</span> * (row - i) - <span class="number">1</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(row)]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> num:</span><br><span class="line">    t = int((row - i) / <span class="number">2</span>)</span><br><span class="line">    print(<span class="string">' '</span> * t + s * i)</span><br></pre></td></tr></table></figure>
+<h4 id="金字塔形"><a href="#金字塔形" class="headerlink" title="金字塔形"></a>金字塔形</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">   *</span></span><br><span class="line"><span class="string">  ***</span></span><br><span class="line"><span class="string"> *****</span></span><br><span class="line"><span class="string">*******</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">row = <span class="number">4</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(row):</span><br><span class="line">    print((row - <span class="number">1</span> - i) * <span class="string">' '</span>, end=<span class="string">''</span>)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">2</span> * i + <span class="number">1</span>):</span><br><span class="line">        print(<span class="string">'*'</span>, end=<span class="string">''</span>)</span><br><span class="line">    print()</span><br></pre></td></tr></table></figure>
+<h4 id="倒三角形"><a href="#倒三角形" class="headerlink" title="倒三角形"></a>倒三角形</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">******* </span></span><br><span class="line"><span class="string"> *****</span></span><br><span class="line"><span class="string">  ***</span></span><br><span class="line"><span class="string">   *</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">row = <span class="number">4</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(row):</span><br><span class="line">    print(i * <span class="string">' '</span>, end=<span class="string">''</span>)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">2</span> * (row - i) - <span class="number">1</span>):</span><br><span class="line">        print(<span class="string">'*'</span>, end=<span class="string">''</span>)</span><br><span class="line">    print()</span><br></pre></td></tr></table></figure>
+<h4 id="直角三角形"><a href="#直角三角形" class="headerlink" title="直角三角形"></a>直角三角形</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">*</span></span><br><span class="line"><span class="string">**</span></span><br><span class="line"><span class="string">***</span></span><br><span class="line"><span class="string">****</span></span><br><span class="line"><span class="string">*****</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">row = <span class="number">5</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(row):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>):</span><br><span class="line">        print(<span class="string">'*'</span>, end=<span class="string">''</span>)</span><br><span class="line">    print()</span><br></pre></td></tr></table></figure>
+<h4 id="倒直角三角形"><a href="#倒直角三角形" class="headerlink" title="倒直角三角形"></a>倒直角三角形</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">******</span></span><br><span class="line"><span class="string">*****</span></span><br><span class="line"><span class="string">****</span></span><br><span class="line"><span class="string">***</span></span><br><span class="line"><span class="string">**</span></span><br><span class="line"><span class="string">*</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">row = <span class="number">6</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(row):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(row - i):</span><br><span class="line">        print(<span class="string">'*'</span>, end=<span class="string">''</span>)</span><br><span class="line">    print()</span><br></pre></td></tr></table></figure>
+<h3 id="函数默认参数为可变类型（-）"><a href="#函数默认参数为可变类型（-）" class="headerlink" title="函数默认参数为可变类型（[ ]）"></a>函数默认参数为可变类型（[ ]）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面代码的输出结果是什么，请解释。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">extend_list</span><span class="params">(val, list=[])</span>:</span></span><br><span class="line">    list.append(val)</span><br><span class="line">    <span class="keyword">return</span> list</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">list1 = extend_list(<span class="number">10</span>)</span><br><span class="line">list2 = extend_list(<span class="number">123</span>, [])</span><br><span class="line">list3 = extend_list(<span class="string">'a'</span>)</span><br><span class="line"></span><br><span class="line">print(list1)</span><br><span class="line">print(list2)</span><br><span class="line">print(list3)</span><br><span class="line"></span><br><span class="line">print(list1 <span class="keyword">is</span> list3)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>依次输出：<br>[10, ‘a’]<br>[123]<br>[10, ‘a’]<br>True<br>因为list1和list3调用函数extend_list时，没有传入list关键字参数，使用了函数初始化的list。<br>返回给list1和list3的都是初始化list的地址，所以值相同。</p>
+</blockquote>
+<h3 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面代码的输出结果是什么，请解释。</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span><span class="params">(object)</span>:</span></span><br><span class="line">    x = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child1</span><span class="params">(Parent)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child2</span><span class="params">(Parent)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">print(Parent.x, Child1.x, Child2.x)</span><br><span class="line">Child1.x = <span class="number">2</span></span><br><span class="line">print(Parent.x, Child1.x, Child2.x)</span><br><span class="line">Parent.x = <span class="number">3</span></span><br><span class="line">print(Parent.x, Child1.x, Child2.x)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>依次输出：<br>1 1 1<br>1 2 1<br>3 2 3<br>因为，Child1、Child2都继承Parent类。<br>第一次都输出Parent的x值，为1。<br>第二次，Child1拥有自己的属性x=2,他的输出变为2。<br>第三次，Parent的属性x被赋值为3。不改变Child1自己的属性x。</p>
+</blockquote>
+<h3 id="二维数组的成员判断"><a href="#二维数组的成员判断" class="headerlink" title="二维数组的成员判断"></a>二维数组的成员判断</h3><p>在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。<br>请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数，如果存在返回该整数的位置。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">arr = [[<span class="number">1</span>,  <span class="number">4</span>,  <span class="number">7</span>,  <span class="number">10</span>, <span class="number">15</span>],</span><br><span class="line">       [<span class="number">2</span>,  <span class="number">5</span>,  <span class="number">8</span>,  <span class="number">12</span>, <span class="number">19</span>],</span><br><span class="line">       [<span class="number">3</span>,  <span class="number">6</span>,  <span class="number">9</span>,  <span class="number">16</span>, <span class="number">22</span>],</span><br><span class="line">       [<span class="number">10</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">17</span>, <span class="number">24</span>],</span><br><span class="line">       [<span class="number">18</span>, <span class="number">21</span>, <span class="number">23</span>, <span class="number">26</span>, <span class="number">30</span>]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_num</span><span class="params">(num, data=None)</span>:</span></span><br><span class="line">    temp = data.copy()</span><br><span class="line">    i, j = <span class="number">0</span>, len(temp[<span class="number">0</span>]) - <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> temp:</span><br><span class="line">        <span class="keyword">if</span> num &gt; temp[<span class="number">0</span>][<span class="number">-1</span>]:</span><br><span class="line">            <span class="keyword">del</span> temp[<span class="number">0</span>]</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> num &lt; temp[<span class="number">0</span>][<span class="number">-1</span>]:</span><br><span class="line">            temp = list(zip(*temp))</span><br><span class="line">            <span class="keyword">del</span> temp[<span class="number">-1</span>]</span><br><span class="line">            temp = list(zip(*temp))</span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> i, j</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(get_num(<span class="number">18</span>, arr))</span><br></pre></td></tr></table></figure>
+<h3 id="使用map、reduce函数实现数字字符串转成整形"><a href="#使用map、reduce函数实现数字字符串转成整形" class="headerlink" title="使用map、reduce函数实现数字字符串转成整形"></a>使用map、reduce函数实现数字字符串转成整形</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">char2num</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">'0'</span>: <span class="number">0</span>, <span class="string">'1'</span>: <span class="number">1</span>, <span class="string">'2'</span>: <span class="number">2</span>, <span class="string">'3'</span>: <span class="number">3</span>, <span class="string">'4'</span>: <span class="number">4</span>, <span class="string">'5'</span>: <span class="number">5</span>, <span class="string">'6'</span>: <span class="number">6</span>, <span class="string">'7'</span>: <span class="number">7</span>, <span class="string">'8'</span>: <span class="number">8</span>, <span class="string">'9'</span>: <span class="number">9</span>&#125;[s]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">str2int</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> reduce(<span class="keyword">lambda</span> x, y: x * <span class="number">10</span> + y, map(char2num, s))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(str2int(<span class="string">'1234'</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="求两个数字的最大公约数，最小公倍数"><a href="#求两个数字的最大公约数，最小公倍数" class="headerlink" title="求两个数字的最大公约数，最小公倍数"></a>求两个数字的最大公约数，最小公倍数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_common</span><span class="params">(m, n)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> n:</span><br><span class="line">        m, n = n, m % n</span><br><span class="line">    <span class="keyword">return</span> m</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">min_common</span><span class="params">(m, n)</span>:</span></span><br><span class="line">    t = m * n</span><br><span class="line">    <span class="keyword">while</span> n:</span><br><span class="line">        m, n = n, m % n</span><br><span class="line">    <span class="keyword">return</span> t // m</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    a = <span class="number">36</span></span><br><span class="line">    b = <span class="number">5</span></span><br><span class="line">    print(max_common(a, b))</span><br><span class="line">    print(min_common(a, b))</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/summary-1.html" rel="next" title="Python基本数据结构">
+                <i class="fa fa-chevron-left"></i> Python基本数据结构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="Maple Shaw" />
+            
+              <p class="site-author-name" itemprop="name">Maple Shaw</p>
+              <p class="site-description motion-element" itemprop="description">Never mind the past, never fear the future.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#星号输出图形"><span class="nav-number">1.</span> <span class="nav-text">星号输出图形</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#菱形"><span class="nav-number">1.1.</span> <span class="nav-text">菱形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#金字塔形"><span class="nav-number">1.2.</span> <span class="nav-text">金字塔形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#倒三角形"><span class="nav-number">1.3.</span> <span class="nav-text">倒三角形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#直角三角形"><span class="nav-number">1.4.</span> <span class="nav-text">直角三角形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#倒直角三角形"><span class="nav-number">1.5.</span> <span class="nav-text">倒直角三角形</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数默认参数为可变类型（-）"><span class="nav-number">2.</span> <span class="nav-text">函数默认参数为可变类型（[ ]）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类的继承"><span class="nav-number">3.</span> <span class="nav-text">类的继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二维数组的成员判断"><span class="nav-number">4.</span> <span class="nav-text">二维数组的成员判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用map、reduce函数实现数字字符串转成整形"><span class="nav-number">5.</span> <span class="nav-text">使用map、reduce函数实现数字字符串转成整形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求两个数字的最大公约数，最小公倍数"><span class="nav-number">6.</span> <span class="nav-text">求两个数字的最大公约数，最小公倍数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Maple Shaw</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
