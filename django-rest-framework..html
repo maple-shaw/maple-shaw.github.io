@@ -95,7 +95,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://mapleshaw.cn/img/drfsmzq.png">
 <meta property="og:image" content="http://mapleshaw.cn/img/ModelViewSet.png">
-<meta property="og:updated_time" content="2017-11-25T05:03:27.727Z">
+<meta property="og:updated_time" content="2017-11-29T13:14:51.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django rest framework总结">
 <meta name="twitter:description" content="Django rest framework中请求的生命周期 项目开展URlhttp://127.0.0.1:8002/v1/api/route/GET: 查询（列表）POST： 增加url(r’^(?P&amp;lt;version&amp;gt;\w+)/api/route/$’, views.RouteView.as_view()),url(r’^(?P&amp;lt;version&amp;gt;\w+)/api/rout">
@@ -359,7 +359,7 @@
 <p>1.封装Request（request，解析相关[对象列表],认证相关[对象列表]，选择相关[对象]，解析内容）<br>2.initial(request, *args, **kwargs)<br>版本：version, scheme = self.determine_version(request, <em>args, *</em>kwargs)<br>认证：self.perform_authentication(request)<br>权限：self.check_permissions(request)<br>限制访问频率：self.check_throttles(request)</p>
 </blockquote>
 <h5 id="ModelViewSet继承关系"><a href="#ModelViewSet继承关系" class="headerlink" title="ModelViewSet继承关系"></a>ModelViewSet继承关系</h5><p><img src="../img/ModelViewSet.png" alt="ModelViewSet"></p>
-<h4 id="请求-响应"><a href="#请求-响应" class="headerlink" title="请求+响应"></a>请求+响应</h4><p>请求：解析器<br>parser_classes = [JSONParser, FormParser, MultiPartParser, ]<br>request.data进行解析<br>响应：渲染<br>renderer_classes = [CustomBrowsableAPIRenderer,JSONRenderer ]</p>
+<h4 id="请求-响应"><a href="#请求-响应" class="headerlink" title="请求+响应"></a>请求+响应</h4><p>请求：解析器<br>parser_classes = [JSONParser, FormParser, MultiPartParser, ]<br>request.data 进行解析，拿到解析后的数据<br><strong>requset._request.COOKIES 客户端发送的COOKIES</strong><br>响应：渲染<br>renderer_classes = [CustomBrowsableAPIRenderer,JSONRenderer ]</p>
 <h4 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h4><ul>
 <li>请求数据验证<br>ser = UserSerialize(data=request.data)<br>ser.is_valid()</li>
 <li>响应数据的序列化（many=True）<br>user_list = models.UserInfo.objects.all()<br>ser = UserSerialize(instance=user_list,many=True,context={‘request’: request})<br><br>user = models.UserInfo.objects.all().first()<br>ser = UserSerialize(instance=user, many=False)<br>return Response(ser.data)</li>
