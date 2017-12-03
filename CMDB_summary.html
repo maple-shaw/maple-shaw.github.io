@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-simple.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="CMDB_client 硬件信息采集系统客户端资产采集涉及的技术点 线程池 兼容三种方式：Agent 、SSH 、Slat 可插拔式插件：basic 、board 、nic 、memory 、disk（参考Django中间件）  配置文件（用户配置、全局配置） requests 模块：　　　　发送：requests.post（url = ‘ ‘ ,data = , json = ）　　　　　　　r">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CMDB项目总结">
+<meta property="og:url" content="http://mapleshaw.cn/CMDB_summary.html">
+<meta property="og:site_name" content="maple-shaw">
+<meta property="og:description" content="CMDB_client 硬件信息采集系统客户端资产采集涉及的技术点 线程池 兼容三种方式：Agent 、SSH 、Slat 可插拔式插件：basic 、board 、nic 、memory 、disk（参考Django中间件）  配置文件（用户配置、全局配置） requests 模块：　　　　发送：requests.post（url = ‘ ‘ ,data = , json = ）　　　　　　　r">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://mapleshaw.cn/img/cmdb_client_liucheng.png">
+<meta property="og:image" content="http://mapleshaw.cn/img/cmdb_client_jiegou.png">
+<meta property="og:updated_time" content="2017-12-03T10:51:09.979Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CMDB项目总结">
+<meta name="twitter:description" content="CMDB_client 硬件信息采集系统客户端资产采集涉及的技术点 线程池 兼容三种方式：Agent 、SSH 、Slat 可插拔式插件：basic 、board 、nic 、memory 、disk（参考Django中间件）  配置文件（用户配置、全局配置） requests 模块：　　　　发送：requests.post（url = ‘ ‘ ,data = , json = ）　　　　　　　r">
+<meta name="twitter:image" content="http://mapleshaw.cn/img/cmdb_client_liucheng.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://mapleshaw.cn/CMDB_summary.html"/>
+
+
+
+
+
+  <title>CMDB项目总结 | maple-shaw</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">maple-shaw</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mapleshaw.cn/CMDB_summary.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maple Shaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="maple-shaw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CMDB项目总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-03T15:59:09+08:00">
+                2017-12-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="CMDB-client-硬件信息采集系统客户端"><a href="#CMDB-client-硬件信息采集系统客户端" class="headerlink" title="CMDB_client 硬件信息采集系统客户端"></a>CMDB_client 硬件信息采集系统客户端</h3><h4 id="资产采集涉及的技术点"><a href="#资产采集涉及的技术点" class="headerlink" title="资产采集涉及的技术点"></a>资产采集涉及的技术点</h4><ul>
+<li>线程池</li>
+<li>兼容三种方式：Agent 、SSH 、Slat</li>
+<li>可插拔式插件：basic 、board 、nic 、memory 、disk（参考Django中间件） </li>
+<li>配置文件（用户配置、全局配置）</li>
+<li>requests 模块：<br>　　　　发送：requests.post（url = ‘ ‘ ,data = , json = ）<br>　　　　　　　requests.get()<br>　　　　Django接受：request.POST ， Content-Type:</li>
+<li>traceback：错误详细信息</li>
+<li>paramiko模块，基于SSH链接远程主机并执行命令</li>
+<li>SaltStack</li>
+<li>API验证<br>　　key,time|time  时间验证、规则验证、是否已存在</li>
+</ul>
+<h4 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h4><h5 id="a-代码如何部署到中控机-master（服务器）上"><a href="#a-代码如何部署到中控机-master（服务器）上" class="headerlink" title="a.代码如何部署到中控机/master（服务器）上"></a>a.代码如何部署到中控机/master（服务器）上</h5><p>-git<br>-代码打成rpm包，运维做<br>　　yum install xxxx </p>
+<h5 id="b-什么时候安装到服务器上"><a href="#b-什么时候安装到服务器上" class="headerlink" title="b.什么时候安装到服务器上"></a>b.什么时候安装到服务器上</h5><p>服务器装完系统后，自动做环境初始化<br>puppet模板<br>　　c1.com文件<br>　　　　yum install python<br>　　　　yum install requests<br>　　　　create file a1.py<br>　　　　cp xx xxx<br>　　　　yum install xxxx<br>　　　　加入到定时任务中<br>saltstack模板</p>
+<h5 id="c-代码如何运行"><a href="#c-代码如何运行" class="headerlink" title="c.代码如何运行"></a>c.代码如何运行</h5><blockquote>
+<p>ssh：中控机 salt：master<br>代码打包成rpm包，服务器装机后，环境初始化时将代码装到中控机或master上，写上定时任务，执行bin目录下的可执行文件。<br>代码流程：1. 获取未采集主机名（通过后台管理手动录入）2. 采集数据 3. 汇报API</p>
+<p>Agent:每台机都装（服务器多用此模式）<br>代码打包成rpm包，服务器装机后，环境初始化时每天机都安装软件。<br>定时任务，执行bin目录下的可执行文件<br>代码流程：1. Agent上执行，采集资产并自动汇报 2. 数据库有：更新 3. 数据库无：增加（自动发现）<br><strong>主机名不能重复</strong></p>
+<p>梳理：<br>a. 代码开发完成<br>b. 部署<br>　　　Agent模式，部署到每台机器上，当装机完成环境初始化的时候，使用rpm包安装。每天执行定时任务。<br>　　　SSH 和 Salt模式，部署到中控机或者master上。前提是装机前登陆服务器管理系统，找到指定的机器，修改设置主机名。每次通过API 进行HTTP请求获取未采集主机列表，再进行资产采集，并提交数据。</p>
+</blockquote>
+<h5 id="d-临时修改主机名，可能造成资产重复汇报"><a href="#d-临时修改主机名，可能造成资产重复汇报" class="headerlink" title="d.临时修改主机名，可能造成资产重复汇报"></a>d.临时修改主机名，可能造成资产重复汇报</h5><ol>
+<li>salt和SSH不会出现资产重复汇报，因为首先获取了未采集的主机名，再进行数据采集，可能会找不到主机名。</li>
+<li>Agent模式可能会出现这种情况。如何避免：<br>系统安装完成后，立即执行资产采集任务；<br>获取当前主机名，将主机名写入到本地cert文件。<br>old_hostname = cert文件内容(空或主机名)<br>new_hostname = 获取当前主机名<br>如果 old_hostname为空，使用new_hostname进行汇报并且写入到cert文件中<br>如果 old_hostname不为空，且new_hostname和old_hostname不相同，使用old_hostname进行汇报。</li>
+</ol>
+<h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><h5 id="SSH-和-Salt-模式"><a href="#SSH-和-Salt-模式" class="headerlink" title="SSH 和 Salt 模式"></a>SSH 和 Salt 模式</h5><ol>
+<li>购买服务器，厂商提供 SN 号、硬盘等网卡进本信息。服务器组装放置到机房机柜上，统计好相关信息，通过Excel录入到数据库中。</li>
+<li>手动装机情况：找到指定机器，安装系统，设置主机名，安装相关软件。<br>自动装机情况：cobbler 装机+saltstack / puppet进行初始化环境<br>都需要通过后台管理——跟新主机名</li>
+<li>唯一标示：<strong>主机名</strong></li>
+</ol>
+<h5 id="Agent-模式"><a href="#Agent-模式" class="headerlink" title="Agent 模式"></a>Agent 模式</h5><p>只有<strong>物理机</strong>算资产：<br>1.购买服务器，厂商提供 SN 号、硬盘等网卡进本信息。服务器组装放置到机房机柜上，统计好相关信息，通过Excel录入到数据库中。<br>2.手动装机情况：找到指定机器，安装系统，设置主机名，安装相关软件。<br>自动装机情况：cobbler 装机+saltstack / puppet进行初始化环境<br>3.唯一标示：<strong>SN号</strong></p>
+<p><strong>物理机+虚拟机</strong>都算资产:<br>1.购买服务器，厂商提供 SN 号、硬盘等网卡进本信息。<br>2.手动装机情况：找到指定机器，安装系统，设置主机名，安装相关软件。<br>自动装机情况：cobbler 装机+saltstack / puppet进行初始化环境<br>3.采集资产：<br>　　　- 自动发现：自动收集硬件信息（管理员、业务线、机房等信息需手动录入）<br>　　　- 已经存在：更新硬件信息<br>4.唯一标识：<strong>主机名</strong></p>
+<h4 id="代码运行流程"><a href="#代码运行流程" class="headerlink" title="代码运行流程"></a>代码运行流程</h4><p><img src="../../img/cmdb_client_liucheng.png" alt="代码流程"></p>
+<h4 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h4><p><img src="../../img/cmdb_client_jiegou.png" alt="代码流程"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/django-rest-framework..html" rel="next" title="Django rest framework总结">
+                <i class="fa fa-chevron-left"></i> Django rest framework总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="Maple Shaw" />
+            
+              <p class="site-author-name" itemprop="name">Maple Shaw</p>
+              <p class="site-description motion-element" itemprop="description">Never mind the past, never fear the future.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CMDB-client-硬件信息采集系统客户端"><span class="nav-number">1.</span> <span class="nav-text">CMDB_client 硬件信息采集系统客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#资产采集涉及的技术点"><span class="nav-number">1.1.</span> <span class="nav-text">资产采集涉及的技术点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见问题"><span class="nav-number">1.2.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-代码如何部署到中控机-master（服务器）上"><span class="nav-number">1.2.1.</span> <span class="nav-text">a.代码如何部署到中控机/master（服务器）上</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-什么时候安装到服务器上"><span class="nav-number">1.2.2.</span> <span class="nav-text">b.什么时候安装到服务器上</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c-代码如何运行"><span class="nav-number">1.2.3.</span> <span class="nav-text">c.代码如何运行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#d-临时修改主机名，可能造成资产重复汇报"><span class="nav-number">1.2.4.</span> <span class="nav-text">d.临时修改主机名，可能造成资产重复汇报</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程"><span class="nav-number">1.3.</span> <span class="nav-text">流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SSH-和-Salt-模式"><span class="nav-number">1.3.1.</span> <span class="nav-text">SSH 和 Salt 模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Agent-模式"><span class="nav-number">1.3.2.</span> <span class="nav-text">Agent 模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码运行流程"><span class="nav-number">1.4.</span> <span class="nav-text">代码运行流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码结构"><span class="nav-number">1.5.</span> <span class="nav-text">代码结构</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Maple Shaw</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
