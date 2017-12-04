@@ -95,7 +95,10 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://mapleshaw.cn/img/cmdb_client_liucheng.png">
 <meta property="og:image" content="http://mapleshaw.cn/img/cmdb_client_jiegou.png">
-<meta property="og:updated_time" content="2017-12-03T10:51:09.979Z">
+<meta property="og:image" content="http://mapleshaw.cn/img/cmdb_server_jiegou.png">
+<meta property="og:image" content="http://mapleshaw.cn/img/server_json_request.png">
+<meta property="og:image" content="http://mapleshaw.cn/img/nb-list.js.png">
+<meta property="og:updated_time" content="2017-12-04T13:25:35.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CMDB项目总结">
 <meta name="twitter:description" content="CMDB_client 硬件信息采集系统客户端资产采集涉及的技术点 线程池 兼容三种方式：Agent 、SSH 、Slat 可插拔式插件：basic 、board 、nic 、memory 、disk（参考Django中间件）  配置文件（用户配置、全局配置） requests 模块：　　　　发送：requests.post（url = ‘ ‘ ,data = , json = ）　　　　　　　r">
@@ -340,10 +343,14 @@
 <li>SaltStack</li>
 <li>API验证<br>　　key,time|time  时间验证、规则验证、是否已存在</li>
 </ul>
-<h4 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h4><h5 id="a-代码如何部署到中控机-master（服务器）上"><a href="#a-代码如何部署到中控机-master（服务器）上" class="headerlink" title="a.代码如何部署到中控机/master（服务器）上"></a>a.代码如何部署到中控机/master（服务器）上</h5><p>-git<br>-代码打成rpm包，运维做<br>　　yum install xxxx </p>
-<h5 id="b-什么时候安装到服务器上"><a href="#b-什么时候安装到服务器上" class="headerlink" title="b.什么时候安装到服务器上"></a>b.什么时候安装到服务器上</h5><p>服务器装完系统后，自动做环境初始化<br>puppet模板<br>　　c1.com文件<br>　　　　yum install python<br>　　　　yum install requests<br>　　　　create file a1.py<br>　　　　cp xx xxx<br>　　　　yum install xxxx<br>　　　　加入到定时任务中<br>saltstack模板</p>
-<h5 id="c-代码如何运行"><a href="#c-代码如何运行" class="headerlink" title="c.代码如何运行"></a>c.代码如何运行</h5><blockquote>
+<h4 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h4><h5 id="a-代码如何部署到中控机-master（服务器）上"><a href="#a-代码如何部署到中控机-master（服务器）上" class="headerlink" title="a.代码如何部署到中控机/master（服务器）上"></a>a.代码如何部署到中控机/master（服务器）上</h5><ul>
+<li>git</li>
+<li>代码打成rpm包，运维做<br>　　yum install xxxx <h5 id="b-什么时候安装到服务器上"><a href="#b-什么时候安装到服务器上" class="headerlink" title="b.什么时候安装到服务器上"></a>b.什么时候安装到服务器上</h5>服务器装完系统后，自动做环境初始化<br>puppet模板<br>　　c1.com文件<br>　　　　yum install python<br>　　　　yum install requests<br>　　　　create file a1.py<br>　　　　cp xx xxx<br>　　　　yum install xxxx<br>　　　　加入到定时任务中<br>saltstack模板<h5 id="c-代码如何运行"><a href="#c-代码如何运行" class="headerlink" title="c.代码如何运行"></a>c.代码如何运行</h5><blockquote>
 <p>ssh：中控机 salt：master<br>代码打包成rpm包，服务器装机后，环境初始化时将代码装到中控机或master上，写上定时任务，执行bin目录下的可执行文件。<br>代码流程：1. 获取未采集主机名（通过后台管理手动录入）2. 采集数据 3. 汇报API</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
 <p>Agent:每台机都装（服务器多用此模式）<br>代码打包成rpm包，服务器装机后，环境初始化时每天机都安装软件。<br>定时任务，执行bin目录下的可执行文件<br>代码流程：1. Agent上执行，采集资产并自动汇报 2. 数据库有：更新 3. 数据库无：增加（自动发现）<br><strong>主机名不能重复</strong></p>
 <p>梳理：<br>a. 代码开发完成<br>b. 部署<br>　　　Agent模式，部署到每台机器上，当装机完成环境初始化的时候，使用rpm包安装。每天执行定时任务。<br>　　　SSH 和 Salt模式，部署到中控机或者master上。前提是装机前登陆服务器管理系统，找到指定的机器，修改设置主机名。每次通过API 进行HTTP请求获取未采集主机列表，再进行资产采集，并提交数据。</p>
 </blockquote>
@@ -360,6 +367,9 @@
 <p><strong>物理机+虚拟机</strong>都算资产:<br>1.购买服务器，厂商提供 SN 号、硬盘等网卡进本信息。<br>2.手动装机情况：找到指定机器，安装系统，设置主机名，安装相关软件。<br>自动装机情况：cobbler 装机+saltstack / puppet进行初始化环境<br>3.采集资产：<br>　　　- 自动发现：自动收集硬件信息（管理员、业务线、机房等信息需手动录入）<br>　　　- 已经存在：更新硬件信息<br>4.唯一标识：<strong>主机名</strong></p>
 <h4 id="代码运行流程"><a href="#代码运行流程" class="headerlink" title="代码运行流程"></a>代码运行流程</h4><p><img src="../../img/cmdb_client_liucheng.png" alt="代码流程"></p>
 <h4 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h4><p><img src="../../img/cmdb_client_jiegou.png" alt="代码流程"></p>
+<h3 id="CMDB-server-硬件信息采集系统服务端"><a href="#CMDB-server-硬件信息采集系统服务端" class="headerlink" title="CMDB_server 硬件信息采集系统服务端"></a>CMDB_server 硬件信息采集系统服务端</h3><h4 id="代码结构-1"><a href="#代码结构-1" class="headerlink" title="代码结构"></a>代码结构</h4><h5 id="CMDB-server-思维导图"><a href="#CMDB-server-思维导图" class="headerlink" title="CMDB_server 思维导图"></a>CMDB_server 思维导图</h5><p><img src="../../img/cmdb_server_jiegou.png" alt="CMDB_server"></p>
+<h5 id="server-json-思维导图"><a href="#server-json-思维导图" class="headerlink" title="server_json 思维导图"></a>server_json 思维导图</h5><p><img src="../../img/server_json_request.png" alt="server_json"></p>
+<h5 id="nb-list-js-思维导图"><a href="#nb-list-js-思维导图" class="headerlink" title="nb-list.js 思维导图"></a>nb-list.js 思维导图</h5><p><img src="../../img/nb-list.js.png" alt="nb-list,js"></p>
 
       
     </div>
@@ -521,7 +531,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CMDB-client-硬件信息采集系统客户端"><span class="nav-number">1.</span> <span class="nav-text">CMDB_client 硬件信息采集系统客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#资产采集涉及的技术点"><span class="nav-number">1.1.</span> <span class="nav-text">资产采集涉及的技术点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见问题"><span class="nav-number">1.2.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-代码如何部署到中控机-master（服务器）上"><span class="nav-number">1.2.1.</span> <span class="nav-text">a.代码如何部署到中控机/master（服务器）上</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-什么时候安装到服务器上"><span class="nav-number">1.2.2.</span> <span class="nav-text">b.什么时候安装到服务器上</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c-代码如何运行"><span class="nav-number">1.2.3.</span> <span class="nav-text">c.代码如何运行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#d-临时修改主机名，可能造成资产重复汇报"><span class="nav-number">1.2.4.</span> <span class="nav-text">d.临时修改主机名，可能造成资产重复汇报</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程"><span class="nav-number">1.3.</span> <span class="nav-text">流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SSH-和-Salt-模式"><span class="nav-number">1.3.1.</span> <span class="nav-text">SSH 和 Salt 模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Agent-模式"><span class="nav-number">1.3.2.</span> <span class="nav-text">Agent 模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码运行流程"><span class="nav-number">1.4.</span> <span class="nav-text">代码运行流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码结构"><span class="nav-number">1.5.</span> <span class="nav-text">代码结构</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CMDB-client-硬件信息采集系统客户端"><span class="nav-number">1.</span> <span class="nav-text">CMDB_client 硬件信息采集系统客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#资产采集涉及的技术点"><span class="nav-number">1.1.</span> <span class="nav-text">资产采集涉及的技术点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见问题"><span class="nav-number">1.2.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#a-代码如何部署到中控机-master（服务器）上"><span class="nav-number">1.2.1.</span> <span class="nav-text">a.代码如何部署到中控机/master（服务器）上</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-什么时候安装到服务器上"><span class="nav-number">1.2.2.</span> <span class="nav-text">b.什么时候安装到服务器上</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c-代码如何运行"><span class="nav-number">1.2.3.</span> <span class="nav-text">c.代码如何运行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#d-临时修改主机名，可能造成资产重复汇报"><span class="nav-number">1.2.4.</span> <span class="nav-text">d.临时修改主机名，可能造成资产重复汇报</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程"><span class="nav-number">1.3.</span> <span class="nav-text">流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SSH-和-Salt-模式"><span class="nav-number">1.3.1.</span> <span class="nav-text">SSH 和 Salt 模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Agent-模式"><span class="nav-number">1.3.2.</span> <span class="nav-text">Agent 模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码运行流程"><span class="nav-number">1.4.</span> <span class="nav-text">代码运行流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码结构"><span class="nav-number">1.5.</span> <span class="nav-text">代码结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMDB-server-硬件信息采集系统服务端"><span class="nav-number">2.</span> <span class="nav-text">CMDB_server 硬件信息采集系统服务端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码结构-1"><span class="nav-number">2.1.</span> <span class="nav-text">代码结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CMDB-server-思维导图"><span class="nav-number">2.1.1.</span> <span class="nav-text">CMDB_server 思维导图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#server-json-思维导图"><span class="nav-number">2.1.2.</span> <span class="nav-text">server_json 思维导图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#nb-list-js-思维导图"><span class="nav-number">2.1.3.</span> <span class="nav-text">nb-list.js 思维导图</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
