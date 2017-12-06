@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="maple-shaw">
 <meta property="og:description" content="简述你对cookie好session的理解 http协议是无状态协议，但是我们需要保持状态，就使用cookie来保存一些信息（用户偏好设置、用户名等）。当浏览器再次访问的时候，会自动带上cookie，服务器通过cookie的内容来查看状态。 cookie一定程度上解决了“保持状态”的需求，但是cookie最大为4K，并且保存在客户端，可能被拦截或者窃取造成安全问题。 session保存在服务端，给">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-05T11:58:59.184Z">
+<meta property="og:updated_time" content="2017-12-06T08:19:09.759Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web相关总结">
 <meta name="twitter:description" content="简述你对cookie好session的理解 http协议是无状态协议，但是我们需要保持状态，就使用cookie来保存一些信息（用户偏好设置、用户名等）。当浏览器再次访问的时候，会自动带上cookie，服务器通过cookie的内容来查看状态。 cookie一定程度上解决了“保持状态”的需求，但是cookie最大为4K，并且保存在客户端，可能被拦截或者窃取造成安全问题。 session保存在服务端，给">
@@ -344,6 +344,20 @@
 <li>所有的数据，不过是通过网络获取的还是操作（增删改查）的数据，都是资源，将一切数据视为资源是REST区别与其他架构风格的最本质属性</li>
 <li>对于REST这种面向资源的架构风格，有人提出一种全新的结构理念，即：面向资源架构（ROA：Resource Oriented Architecture）</li>
 </ul>
+<h3 id="简述什么是三次握手和四次挥手？为什么要这样？"><a href="#简述什么是三次握手和四次挥手？为什么要这样？" class="headerlink" title="简述什么是三次握手和四次挥手？为什么要这样？"></a>简述什么是三次握手和四次挥手？为什么要这样？</h3><p>建立连接的过程是利用客户服务器模式，假设主机A是客服端，主机B是服务端。<br>三次握手</p>
+<ol>
+<li>TCP的三次握手过程：主机A向B发送连接请求；主机B对收到的主机A的保温段进行确认；主机A再次对主机B的确认进行确认。</li>
+<li>采用三次握手是为了防止失效的连接请求报文突然又传到主机B，因而产生的错误。失效的连接请求报文段是指：主机A发出的连接请求没有收到主机B的确认，于是经过一段时间后，主机A又重新想主机B发送连接请求，且建立成功，顺利完成数据传输。考虑到这样一种特殊情况，主机A第一次发送的连接请求并没有丢失，而是因为网络节点导致延迟到达主机B，主机B以为是主机A又发起了新的连接，于是主机B同意连接，且建立成功，顺利完成数据传输。考虑这样一种特殊情况，主机A第一次发送的连接请求并没有丢失，而是因为网络节点导致延迟达到主机B，主机B以为是主机A又发起的新连接，于是主机B同意连接，并向主机A发回确认，但是此时主机A根本不会理会，主机B就一直在等待主机A发送数据，导致主机B的资源浪费。</li>
+<li>采用两次握手不行，原因就是上面说的失效的连接请求的特殊情况，因此采用三次握手刚刚好，两次可能出现失效，四次甚至更多次则没必要，反而复杂了。</li>
+</ol>
+<p>四次挥手</p>
+<ol>
+<li>先由客户端向服务器端发送一个FIN标记设置为1，请求关闭数据传输。</li>
+<li>当服务器接收到客户端的FIN=1时，向客户端发送一个ACK=1，其中ack的值等于FIN+SEQ</li>
+<li>然后服务器向客户端发送一个FIN，告诉客户端应用程序关闭。</li>
+<li>当客户端收到服务器端的FIN时，回复一个ACK给服务器端。其中ack的值等于FIN+SEQ</li>
+</ol>
+<p>4次挥手保证数据能够传输完成。</p>
 
       
     </div>
@@ -505,7 +519,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简述你对cookie好session的理解"><span class="nav-number">1.</span> <span class="nav-text">简述你对cookie好session的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSRF和XSS"><span class="nav-number">2.</span> <span class="nav-text">XSRF和XSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间人攻击"><span class="nav-number">3.</span> <span class="nav-text">中间人攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CGI和WSGI"><span class="nav-number">4.</span> <span class="nav-text">CGI和WSGI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器缓存-HTTP缓存"><span class="nav-number">5.</span> <span class="nav-text">浏览器缓存|HTTP缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTful"><span class="nav-number">6.</span> <span class="nav-text">RESTful</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简述你对cookie好session的理解"><span class="nav-number">1.</span> <span class="nav-text">简述你对cookie好session的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSRF和XSS"><span class="nav-number">2.</span> <span class="nav-text">XSRF和XSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间人攻击"><span class="nav-number">3.</span> <span class="nav-text">中间人攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CGI和WSGI"><span class="nav-number">4.</span> <span class="nav-text">CGI和WSGI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器缓存-HTTP缓存"><span class="nav-number">5.</span> <span class="nav-text">浏览器缓存|HTTP缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTful"><span class="nav-number">6.</span> <span class="nav-text">RESTful</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简述什么是三次握手和四次挥手？为什么要这样？"><span class="nav-number">7.</span> <span class="nav-text">简述什么是三次握手和四次挥手？为什么要这样？</span></a></li></ol></div>
             
 
           </div>
