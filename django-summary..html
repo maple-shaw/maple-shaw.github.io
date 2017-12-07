@@ -86,17 +86,17 @@
 
 
 
-<meta name="description" content="django重定向的原理 服务器接受请求，经过解析URL匹配相应的处理函数。 通过  Django调用模板的过程 找到模板 定义上下文 渲染模板">
+<meta name="description" content="django重定向的原理 服务器接受请求，经过解析URL匹配相应的处理函数。 通过  Django调用模板的过程 找到模板 定义上下文 渲染模板  Django中如何在model保存前做一定的固定操作，比如写一句日志Django中提供了信号，用于在框架执行操作时解耦。就是一些动作发生时，信号允许特定的发送者去提醒一些接受者。使用pre_save信号，Django的model对象保存前，自动触发。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="django总结">
 <meta property="og:url" content="http://mapleshaw.cn/django-summary..html">
 <meta property="og:site_name" content="maple-shaw">
-<meta property="og:description" content="django重定向的原理 服务器接受请求，经过解析URL匹配相应的处理函数。 通过  Django调用模板的过程 找到模板 定义上下文 渲染模板">
+<meta property="og:description" content="django重定向的原理 服务器接受请求，经过解析URL匹配相应的处理函数。 通过  Django调用模板的过程 找到模板 定义上下文 渲染模板  Django中如何在model保存前做一定的固定操作，比如写一句日志Django中提供了信号，用于在框架执行操作时解耦。就是一些动作发生时，信号允许特定的发送者去提醒一些接受者。使用pre_save信号，Django的model对象保存前，自动触发。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-05T11:50:51.772Z">
+<meta property="og:updated_time" content="2017-12-07T10:14:26.825Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django总结">
-<meta name="twitter:description" content="django重定向的原理 服务器接受请求，经过解析URL匹配相应的处理函数。 通过  Django调用模板的过程 找到模板 定义上下文 渲染模板">
+<meta name="twitter:description" content="django重定向的原理 服务器接受请求，经过解析URL匹配相应的处理函数。 通过  Django调用模板的过程 找到模板 定义上下文 渲染模板  Django中如何在model保存前做一定的固定操作，比如写一句日志Django中提供了信号，用于在框架执行操作时解耦。就是一些动作发生时，信号允许特定的发送者去提醒一些接受者。使用pre_save信号，Django的model对象保存前，自动触发。">
 
 
 
@@ -335,6 +335,8 @@
 <li>定义上下文</li>
 <li>渲染模板</li>
 </ol>
+<h3 id="Django中如何在model保存前做一定的固定操作，比如写一句日志"><a href="#Django中如何在model保存前做一定的固定操作，比如写一句日志" class="headerlink" title="Django中如何在model保存前做一定的固定操作，比如写一句日志"></a>Django中如何在model保存前做一定的固定操作，比如写一句日志</h3><p>Django中提供了信号，用于在框架执行操作时解耦。就是一些动作发生时，信号允许特定的发送者去提醒一些接受者。<br>使用pre_save信号，Django的model对象保存前，自动触发。</p>
+<p><a href="http://www.cnblogs.com/maple-shaw/p/7563029.html#_label3" target="_blank" rel="external">更多内置信号</a></p>
 
       
     </div>
@@ -500,7 +502,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#django重定向的原理"><span class="nav-number">1.</span> <span class="nav-text">django重定向的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django调用模板的过程"><span class="nav-number">2.</span> <span class="nav-text">Django调用模板的过程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#django重定向的原理"><span class="nav-number">1.</span> <span class="nav-text">django重定向的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django调用模板的过程"><span class="nav-number">2.</span> <span class="nav-text">Django调用模板的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django中如何在model保存前做一定的固定操作，比如写一句日志"><span class="nav-number">3.</span> <span class="nav-text">Django中如何在model保存前做一定的固定操作，比如写一句日志</span></a></li></ol></div>
             
 
           </div>
