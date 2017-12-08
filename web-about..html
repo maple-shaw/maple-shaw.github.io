@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="maple-shaw">
 <meta property="og:description" content="简述你对cookie好session的理解 http协议是无状态协议，但是我们需要保持状态，就使用cookie来保存一些信息（用户偏好设置、用户名等）。当浏览器再次访问的时候，会自动带上cookie，服务器通过cookie的内容来查看状态。 cookie一定程度上解决了“保持状态”的需求，但是cookie最大为4K，并且保存在客户端，可能被拦截或者窃取造成安全问题。 session保存在服务端，给">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-06T09:03:00.254Z">
+<meta property="og:updated_time" content="2017-12-08T02:30:02.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web相关总结">
 <meta name="twitter:description" content="简述你对cookie好session的理解 http协议是无状态协议，但是我们需要保持状态，就使用cookie来保存一些信息（用户偏好设置、用户名等）。当浏览器再次访问的时候，会自动带上cookie，服务器通过cookie的内容来查看状态。 cookie一定程度上解决了“保持状态”的需求，但是cookie最大为4K，并且保存在客户端，可能被拦截或者窃取造成安全问题。 session保存在服务端，给">
@@ -331,6 +331,16 @@
 <li>cookie一定程度上解决了“保持状态”的需求，但是cookie最大为4K，并且保存在客户端，可能被拦截或者窃取造成安全问题。</li>
 <li>session保存在服务端，给cookie分配一个唯一id,session_key:唯一随机字符串，通过cookie来识别用户，在session中保存隐私的信息，相对安全点。</li>
 </ol>
+<h3 id="HTTP请求方法"><a href="#HTTP请求方法" class="headerlink" title="HTTP请求方法"></a>HTTP请求方法</h3><ol>
+<li>GET 请求指定的页面信息，并返回实体主体。</li>
+<li>HEAD    类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头</li>
+<li>POST    向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。</li>
+<li>PUT 从客户端向服务器传送的数据取代指定的文档的内容。</li>
+<li>DELETE  请求服务器删除指定的页面。</li>
+<li>CONNECT HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。</li>
+<li>OPTIONS 允许客户端查看服务器的性能。</li>
+<li>TRACE   回显服务器收到的请求，主要用于测试或诊断。</li>
+</ol>
 <h3 id="XSRF和XSS"><a href="#XSRF和XSS" class="headerlink" title="XSRF和XSS"></a>XSRF和XSS</h3><ul>
 <li>XSRF|CSRF（Cross Site Request Forgery） 跨站请求伪造</li>
 <li>XSS（Cross Site Scripting） 跨站脚本攻击</li>
@@ -528,7 +538,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简述你对cookie好session的理解"><span class="nav-number">1.</span> <span class="nav-text">简述你对cookie好session的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSRF和XSS"><span class="nav-number">2.</span> <span class="nav-text">XSRF和XSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间人攻击"><span class="nav-number">3.</span> <span class="nav-text">中间人攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CGI和WSGI"><span class="nav-number">4.</span> <span class="nav-text">CGI和WSGI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器缓存-HTTP缓存"><span class="nav-number">5.</span> <span class="nav-text">浏览器缓存|HTTP缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTful"><span class="nav-number">6.</span> <span class="nav-text">RESTful</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简述什么是三次握手和四次挥手？为什么要这样？"><span class="nav-number">7.</span> <span class="nav-text">简述什么是三次握手和四次挥手？为什么要这样？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个简单TCP服务器需要的流程"><span class="nav-number">8.</span> <span class="nav-text">创建一个简单TCP服务器需要的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谈谈你对Nginx的正向代理和反向代理的理解"><span class="nav-number">9.</span> <span class="nav-text">谈谈你对Nginx的正向代理和反向代理的理解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简述你对cookie好session的理解"><span class="nav-number">1.</span> <span class="nav-text">简述你对cookie好session的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP请求方法"><span class="nav-number">2.</span> <span class="nav-text">HTTP请求方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSRF和XSS"><span class="nav-number">3.</span> <span class="nav-text">XSRF和XSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间人攻击"><span class="nav-number">4.</span> <span class="nav-text">中间人攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CGI和WSGI"><span class="nav-number">5.</span> <span class="nav-text">CGI和WSGI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器缓存-HTTP缓存"><span class="nav-number">6.</span> <span class="nav-text">浏览器缓存|HTTP缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTful"><span class="nav-number">7.</span> <span class="nav-text">RESTful</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简述什么是三次握手和四次挥手？为什么要这样？"><span class="nav-number">8.</span> <span class="nav-text">简述什么是三次握手和四次挥手？为什么要这样？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个简单TCP服务器需要的流程"><span class="nav-number">9.</span> <span class="nav-text">创建一个简单TCP服务器需要的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谈谈你对Nginx的正向代理和反向代理的理解"><span class="nav-number">10.</span> <span class="nav-text">谈谈你对Nginx的正向代理和反向代理的理解</span></a></li></ol></div>
             
 
           </div>
