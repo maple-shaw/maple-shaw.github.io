@@ -86,17 +86,20 @@
 
 
 
-<meta name="description" content="django重定向的原理 服务器接受请求，经过解析URL匹配相应的处理函数。 通过  Django调用模板的过程 找到模板 定义上下文 渲染模板  Django中如何在model保存前做一定的固定操作，比如写一句日志Django中提供了信号，用于在框架执行操作时解耦。就是一些动作发生时，信号允许特定的发送者去提醒一些接受者。使用pre_save信号，Django的model对象保存前，自动触发。">
+<meta name="description" content="描述下MVC架构MVC 是一种使用 MVC（Model View Controller 模型-视图-控制器）设计创建 Web 应用程序的模式:Model（模型）表示应用程序核心（比如数据库记录列表）。View（视图）显示数据（数据库记录）。Controller（控制器）处理输入（写入数据库记录）。MVC 模式同时提供了对 HTML、CSS 和 JavaScript 的完全控制。Model（模型）是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="django总结">
 <meta property="og:url" content="http://mapleshaw.cn/django-summary..html">
 <meta property="og:site_name" content="maple-shaw">
-<meta property="og:description" content="django重定向的原理 服务器接受请求，经过解析URL匹配相应的处理函数。 通过  Django调用模板的过程 找到模板 定义上下文 渲染模板  Django中如何在model保存前做一定的固定操作，比如写一句日志Django中提供了信号，用于在框架执行操作时解耦。就是一些动作发生时，信号允许特定的发送者去提醒一些接受者。使用pre_save信号，Django的model对象保存前，自动触发。">
+<meta property="og:description" content="描述下MVC架构MVC 是一种使用 MVC（Model View Controller 模型-视图-控制器）设计创建 Web 应用程序的模式:Model（模型）表示应用程序核心（比如数据库记录列表）。View（视图）显示数据（数据库记录）。Controller（控制器）处理输入（写入数据库记录）。MVC 模式同时提供了对 HTML、CSS 和 JavaScript 的完全控制。Model（模型）是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-07T10:14:26.825Z">
+<meta property="og:image" content="http://mapleshaw.cn/img/MTV1.png">
+<meta property="og:image" content="http://mapleshaw.cn/img/MTV2.png">
+<meta property="og:updated_time" content="2017-12-09T06:22:06.813Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="django总结">
-<meta name="twitter:description" content="django重定向的原理 服务器接受请求，经过解析URL匹配相应的处理函数。 通过  Django调用模板的过程 找到模板 定义上下文 渲染模板  Django中如何在model保存前做一定的固定操作，比如写一句日志Django中提供了信号，用于在框架执行操作时解耦。就是一些动作发生时，信号允许特定的发送者去提醒一些接受者。使用pre_save信号，Django的model对象保存前，自动触发。">
+<meta name="twitter:description" content="描述下MVC架构MVC 是一种使用 MVC（Model View Controller 模型-视图-控制器）设计创建 Web 应用程序的模式:Model（模型）表示应用程序核心（比如数据库记录列表）。View（视图）显示数据（数据库记录）。Controller（控制器）处理输入（写入数据库记录）。MVC 模式同时提供了对 HTML、CSS 和 JavaScript 的完全控制。Model（模型）是">
+<meta name="twitter:image" content="http://mapleshaw.cn/img/MTV1.png">
 
 
 
@@ -299,6 +302,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试汇总/" itemprop="url" rel="index">
+                    <span itemprop="name">面试汇总</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -326,7 +351,10 @@
       
 
       
-        <h3 id="django重定向的原理"><a href="#django重定向的原理" class="headerlink" title="django重定向的原理"></a>django重定向的原理</h3><ol>
+        <h3 id="描述下MVC架构"><a href="#描述下MVC架构" class="headerlink" title="描述下MVC架构"></a>描述下MVC架构</h3><p>MVC 是一种使用 MVC（Model View Controller 模型-视图-控制器）设计创建 Web 应用程序的模式:<br>Model（模型）表示应用程序核心（比如数据库记录列表）。<br>View（视图）显示数据（数据库记录）。<br>Controller（控制器）处理输入（写入数据库记录）。<br>MVC 模式同时提供了对 HTML、CSS 和 JavaScript 的完全控制。<br>Model（模型）是应用程序中用于处理应用程序数据逻辑的部分。<br>　　通常模型对象负责在数据库中存取数据。<br>View（视图）是应用程序中处理数据显示的部分。<br>　　通常视图是依据模型数据创建的。<br>Controller（控制器）是应用程序中处理用户交互的部分。<br>　　通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据。<br>MVC 分层有助于管理复杂的应用程序，因为您可以在一个时间内专门关注一个方面。例如，您可以在不依赖业务逻辑的情况下专注于视图设计。同时也让应用程序的测试更加容易。<br>MVC 分层同时也简化了分组开发。不同的开发人员可同时开发视图、控制器逻辑和业务逻辑。</p>
+<h3 id="Django的MTV架构"><a href="#Django的MTV架构" class="headerlink" title="Django的MTV架构"></a>Django的MTV架构</h3><p>Django的MTV模式本质上和MVC是一样的，也是为了各组件间保持松耦合关系，只是定义上有些许不同，Django的MTV分别是值：<br>M 代表模型（Model）：负责业务对象和数据库的关系映射(ORM)。<br>T 代表模板 (Template)：负责如何把页面展示给用户(html)。<br>V 代表视图（View）：负责业务逻辑，并在适当时候调用Model和Template。<br>除了以上三层之外，还需要一个URL分发器，它的作用是将一个个URL的页面请求分发给不同的View处理，View再调用相应的Model和Template，MTV的响应模式如下所示：</p>
+<p><img src="../img/MTV1.png" alt=""><br><img src="../img/MTV2.png" alt=""></p>
+<h3 id="django重定向的原理"><a href="#django重定向的原理" class="headerlink" title="django重定向的原理"></a>django重定向的原理</h3><ol>
 <li>服务器接受请求，经过解析URL匹配相应的处理函数。</li>
 <li>通过</li>
 </ol>
@@ -502,7 +530,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#django重定向的原理"><span class="nav-number">1.</span> <span class="nav-text">django重定向的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django调用模板的过程"><span class="nav-number">2.</span> <span class="nav-text">Django调用模板的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django中如何在model保存前做一定的固定操作，比如写一句日志"><span class="nav-number">3.</span> <span class="nav-text">Django中如何在model保存前做一定的固定操作，比如写一句日志</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#描述下MVC架构"><span class="nav-number">1.</span> <span class="nav-text">描述下MVC架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django的MTV架构"><span class="nav-number">2.</span> <span class="nav-text">Django的MTV架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django重定向的原理"><span class="nav-number">3.</span> <span class="nav-text">django重定向的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django调用模板的过程"><span class="nav-number">4.</span> <span class="nav-text">Django调用模板的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django中如何在model保存前做一定的固定操作，比如写一句日志"><span class="nav-number">5.</span> <span class="nav-text">Django中如何在model保存前做一定的固定操作，比如写一句日志</span></a></li></ol></div>
             
 
           </div>

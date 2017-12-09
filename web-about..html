@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="maple-shaw">
 <meta property="og:description" content="简述你对cookie好session的理解 http协议是无状态协议，但是我们需要保持状态，就使用cookie来保存一些信息（用户偏好设置、用户名等）。当浏览器再次访问的时候，会自动带上cookie，服务器通过cookie的内容来查看状态。 cookie一定程度上解决了“保持状态”的需求，但是cookie最大为4K，并且保存在客户端，可能被拦截或者窃取造成安全问题。 session保存在服务端，给">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-08T02:30:02.875Z">
+<meta property="og:updated_time" content="2017-12-09T06:06:35.351Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web相关总结">
 <meta name="twitter:description" content="简述你对cookie好session的理解 http协议是无状态协议，但是我们需要保持状态，就使用cookie来保存一些信息（用户偏好设置、用户名等）。当浏览器再次访问的时候，会自动带上cookie，服务器通过cookie的内容来查看状态。 cookie一定程度上解决了“保持状态”的需求，但是cookie最大为4K，并且保存在客户端，可能被拦截或者窃取造成安全问题。 session保存在服务端，给">
@@ -299,6 +299,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试汇总/" itemprop="url" rel="index">
+                    <span itemprop="name">面试汇总</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -377,6 +399,17 @@
 <li>结束后关闭客户端、服务端：conn.close() s.close()</li>
 </ol>
 <h3 id="谈谈你对Nginx的正向代理和反向代理的理解"><a href="#谈谈你对Nginx的正向代理和反向代理的理解" class="headerlink" title="谈谈你对Nginx的正向代理和反向代理的理解"></a>谈谈你对Nginx的正向代理和反向代理的理解</h3><p>正向代理：是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。客户端必须要进行一些特别的设置才能使用正向代理。<br>反向代理：对于客户端而言它就像是原始服务器，并且客户端不需要进行任何特别的设置。客户端向反向代理的命名空间中的内容发送普通请求，接着反向代理将判断向何处(原始服务器)转交请求，并将获得的内容返回给客户端，就像这些内容原本就是它自己的一样。</p>
+<h3 id="从输入URL到页面加载中间都发生了什么"><a href="#从输入URL到页面加载中间都发生了什么" class="headerlink" title="从输入URL到页面加载中间都发生了什么"></a>从输入URL到页面加载中间都发生了什么</h3><ol>
+<li>DNS解析</li>
+<li>TCP连接</li>
+<li>发送HTTP请求</li>
+<li>服务器处理请求并返回HTTP报文</li>
+<li>浏览器解析渲染页面</li>
+<li>连接结束<br><a href="https://segmentfault.com/a/1190000006879700" target="_blank" rel="external">详解1</a><br><a href="https://www.cnblogs.com/kongxy/p/4615226.html" target="_blank" rel="external">详解2</a></li>
+</ol>
+<h3 id="HTTP状态码的作用和他们表示的意思"><a href="#HTTP状态码的作用和他们表示的意思" class="headerlink" title="HTTP状态码的作用和他们表示的意思"></a>HTTP状态码的作用和他们表示的意思</h3><p>HTTP状态码（HTTP Status Code）是用以表示网页服务器HTTP响应状态的3位数字代码</p>
+<p>1XX：代表请求已被接受，需要继续处理，临时响应。<br>2XX：成功。代表请求已成功被服务器接受、理解、并接受。200 OK<br>3XX：重定向。后续的请求地址（重定向目标）在本次响应的 Location 域中指明。客户端采取进一步的操作才能完成请求。304 Not Modified<br>4XX：客户端请求错误。代表客户端请求有错误，影响服务器的处理。403 Forbidden 服务器已经理解请求，但是拒绝执行它。 404 Not Found 请求失败，请求所希望得到的资源未被在服务器上发现。<br>5XX：服务器错误。代表了服务器在处理请求的过程中有错误或者异常状态发生，也有可能是服务器意识到以当前的软硬件资源无法完成对请求的处理。500 Internal Server Error 服务器遇到未知的错误。</p>
+<p><a href="https://baike.baidu.com/item/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/5053660?fr=aladdin" target="_blank" rel="external">百度详解</a></p>
 
       
     </div>
@@ -538,7 +571,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简述你对cookie好session的理解"><span class="nav-number">1.</span> <span class="nav-text">简述你对cookie好session的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP请求方法"><span class="nav-number">2.</span> <span class="nav-text">HTTP请求方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSRF和XSS"><span class="nav-number">3.</span> <span class="nav-text">XSRF和XSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间人攻击"><span class="nav-number">4.</span> <span class="nav-text">中间人攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CGI和WSGI"><span class="nav-number">5.</span> <span class="nav-text">CGI和WSGI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器缓存-HTTP缓存"><span class="nav-number">6.</span> <span class="nav-text">浏览器缓存|HTTP缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTful"><span class="nav-number">7.</span> <span class="nav-text">RESTful</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简述什么是三次握手和四次挥手？为什么要这样？"><span class="nav-number">8.</span> <span class="nav-text">简述什么是三次握手和四次挥手？为什么要这样？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个简单TCP服务器需要的流程"><span class="nav-number">9.</span> <span class="nav-text">创建一个简单TCP服务器需要的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谈谈你对Nginx的正向代理和反向代理的理解"><span class="nav-number">10.</span> <span class="nav-text">谈谈你对Nginx的正向代理和反向代理的理解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简述你对cookie好session的理解"><span class="nav-number">1.</span> <span class="nav-text">简述你对cookie好session的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP请求方法"><span class="nav-number">2.</span> <span class="nav-text">HTTP请求方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSRF和XSS"><span class="nav-number">3.</span> <span class="nav-text">XSRF和XSS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间人攻击"><span class="nav-number">4.</span> <span class="nav-text">中间人攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CGI和WSGI"><span class="nav-number">5.</span> <span class="nav-text">CGI和WSGI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器缓存-HTTP缓存"><span class="nav-number">6.</span> <span class="nav-text">浏览器缓存|HTTP缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTful"><span class="nav-number">7.</span> <span class="nav-text">RESTful</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简述什么是三次握手和四次挥手？为什么要这样？"><span class="nav-number">8.</span> <span class="nav-text">简述什么是三次握手和四次挥手？为什么要这样？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个简单TCP服务器需要的流程"><span class="nav-number">9.</span> <span class="nav-text">创建一个简单TCP服务器需要的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谈谈你对Nginx的正向代理和反向代理的理解"><span class="nav-number">10.</span> <span class="nav-text">谈谈你对Nginx的正向代理和反向代理的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从输入URL到页面加载中间都发生了什么"><span class="nav-number">11.</span> <span class="nav-text">从输入URL到页面加载中间都发生了什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP状态码的作用和他们表示的意思"><span class="nav-number">12.</span> <span class="nav-text">HTTP状态码的作用和他们表示的意思</span></a></li></ol></div>
             
 
           </div>
