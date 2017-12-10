@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="maple-shaw">
 <meta property="og:description" content="数据库1. 事务数据库事务(Database Transaction) ，是指作为单个逻辑工作单元执行的一系列操作，要么完全地执行，要么完全地不执行。一个数据库事务通常包含对数据库进行读或写的一个操作序列。它的存在包含有以下两个目的：  为数据库操作提供了一个从失败中恢复到正常状态的方法，同时提供了数据库即使在异常状态下仍能保持一致性的方法。 当多个应用程序在并发访问数据库时，可以在这些应用程序之">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-09T06:56:06.768Z">
+<meta property="og:updated_time" content="2017-12-10T06:23:38.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库">
 <meta name="twitter:description" content="数据库1. 事务数据库事务(Database Transaction) ，是指作为单个逻辑工作单元执行的一系列操作，要么完全地执行，要么完全地不执行。一个数据库事务通常包含对数据库进行读或写的一个操作序列。它的存在包含有以下两个目的：  为数据库操作提供了一个从失败中恢复到正常状态的方法，同时提供了数据库即使在异常状态下仍能保持一致性的方法。 当多个应用程序在并发访问数据库时，可以在这些应用程序之">
@@ -288,7 +288,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-15T12:15:33+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-15T08:15:33+08:00">
                 2017-11-15
               </time>
             
@@ -381,7 +381,29 @@
 <li>是数据库容量受到物理内存的限制,不能用作海量数据的高性能读写,因此Redis适合的场景主要局限在较小数据量的高性能操作和运算上。</li>
 <li>Redis较难支持在线扩容，在集群容量达到上限时在线扩容会变得很复杂。为避免这一问题，运维人员在系统上线时必须确保有足够的空间，这对资源造成了很大的浪费。</li>
 </ul>
-<h3 id="4-数据库引擎"><a href="#4-数据库引擎" class="headerlink" title="4. 数据库引擎"></a>4. 数据库引擎</h3><p><a href="http://www.cnblogs.com/0201zcr/p/5296843.html" target="_blank" rel="external">数据库引擎</a><br><a href="https://segmentfault.com/a/1190000008227211" target="_blank" rel="external">MySQL存储引擎－－MyISAM与InnoDB区别</a></p>
+<h3 id="4-数据库引擎"><a href="#4-数据库引擎" class="headerlink" title="4. 数据库引擎"></a>4. 数据库引擎</h3><p><a href="http://www.cnblogs.com/0201zcr/p/5296843.html" target="_blank" rel="external">数据库引擎</a></p>
+<h4 id="简述MyISAM与InnoDB区别"><a href="#简述MyISAM与InnoDB区别" class="headerlink" title="简述MyISAM与InnoDB区别"></a>简述MyISAM与InnoDB区别</h4><ol>
+<li>存储结构<blockquote>
+<p>MyISAM：每个MyISAM在磁盘上存储成三个文件。<br> InnoDB：所有的表都保存在同一个数据文件中。</p>
+</blockquote>
+</li>
+<li>事务支持<blockquote>
+<p>MyISAM：强调的是性能，每次查询具有原子性,其执行数度比InnoDB类型更快，但是不提供事务支持。<br> InnoDB：提供事务支持事务，外部键等高级数据库功能。</p>
+</blockquote>
+</li>
+<li>外键<blockquote>
+<p>MyISAM：不支持<br> InnoDB：支持</p>
+</blockquote>
+</li>
+<li>全文索引<blockquote>
+<p>MyISAM：支持全文索引<br> Innodb：不支持全文索引</p>
+</blockquote>
+</li>
+<li>查询和更新<blockquote>
+<p>MyISAM：大量的select，用MyISAM<br> Innodb：大量的insert或update，用Innodb<br><a href="https://segmentfault.com/a/1190000008227211" target="_blank" rel="external">MySQL存储引擎－－MyISAM与InnoDB区别</a></p>
+</blockquote>
+</li>
+</ol>
 <h3 id="5-请简述对左连接、右连接以及内连接的理解"><a href="#5-请简述对左连接、右连接以及内连接的理解" class="headerlink" title="5. 请简述对左连接、右连接以及内连接的理解"></a>5. 请简述对左连接、右连接以及内连接的理解</h3><p>left join（左连接）返回包括左表中的所有记录和右表中联结字段相等的记录<br>right join（右连接）返回包括右表中的所有记录和左表中联结字段相等的记录<br>inner join（内连接）只返回两个表中联结字段相等的行</p>
 <h3 id="6-Redis和MySQL的事务有什么区别？"><a href="#6-Redis和MySQL的事务有什么区别？" class="headerlink" title="6. Redis和MySQL的事务有什么区别？"></a>6. Redis和MySQL的事务有什么区别？</h3><ol>
 <li>Redis的事务（transaction）是一组命令的集合。事务同命令一样都是Redis最小的执行单元，一个事务中的命令要么都执行，要么都不执行。Redis事务的实现需要用到multi和exec两个命令，事务开始的时候要先想Redis服务器发送multi命令，然后依次发送需要再本次事务中处理的命令，最后再发送exec命令表示事务命令结束。</li>
@@ -433,6 +455,10 @@
 <li>在数据库中创建的索引需要占用一定的物理存储空间，这其中就包括数据表所占的数据空间以及所创建的每一个索引所占用的物理空间，如果有必要建立起聚簇索引，所占用的空间还将进一步的增加</li>
 <li>在对表中的数据进行修改时，例如对其进行增加、删除或者是修改操作时，索引还需要进行动态的维护，这给数据库的维护速度带来了一定的麻烦。</li>
 </ul>
+<h3 id="数据库练习"><a href="#数据库练习" class="headerlink" title="数据库练习"></a>数据库练习</h3><h4 id="写SQL语句，对下面两张表实现处理"><a href="#写SQL语句，对下面两张表实现处理" class="headerlink" title="写SQL语句，对下面两张表实现处理"></a>写SQL语句，对下面两张表实现处理</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">table_a</span></span><br><span class="line"><span class="string">name kecheng fenshu </span></span><br><span class="line"><span class="string">张三  语文  81</span></span><br><span class="line"><span class="string">张三  数学  75</span></span><br><span class="line"><span class="string">李四  语文  76</span></span><br><span class="line"><span class="string">李四  数学  90</span></span><br><span class="line"><span class="string">王五  语文  81</span></span><br><span class="line"><span class="string">王五  数学  100</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">table_b</span></span><br><span class="line"><span class="string">id name</span></span><br><span class="line"><span class="string">1  张三</span></span><br><span class="line"><span class="string">2  李四</span></span><br><span class="line"><span class="string">3  王五</span></span><br><span class="line"><span class="string">4  小六</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<p>查询出每门课程都大于80分的学生姓名<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> <span class="keyword">name</span> <span class="keyword">FROM</span> Table_A <span class="keyword">WHERE</span> <span class="keyword">name</span> <span class="keyword">not</span> <span class="keyword">in</span> (<span class="keyword">SELECT</span> <span class="keyword">name</span> <span class="keyword">FROM</span> Table_A <span class="keyword">WHERE</span> fenshu&lt;<span class="number">80</span>);</span><br></pre></td></tr></table></figure></p>
+<p>查询语文成绩最大的学生姓名<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span> <span class="keyword">FROM</span> Table_A <span class="keyword">WHERE</span> kecheng=<span class="string">'语文'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> fenshu <span class="keyword">DESC</span> <span class="keyword">LIMIT</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+<p>查询没有成绩的学生姓名<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span> <span class="keyword">FROM</span> Table_B <span class="keyword">WHERE</span> <span class="keyword">name</span> <span class="keyword">not</span> <span class="keyword">in</span> (<span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> <span class="keyword">name</span> <span class="keyword">FROM</span> Table_A);</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -457,8 +483,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/summary.html" rel="next" title="Python语言特性">
-                <i class="fa fa-chevron-left"></i> Python语言特性
+              <a href="/python_stack.html" rel="next" title="Python实现堆栈和队列">
+                <i class="fa fa-chevron-left"></i> Python实现堆栈和队列
               </a>
             
           </div>
@@ -467,8 +493,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/summary-1.html" rel="prev" title="Python基本数据结构">
-                Python基本数据结构 <i class="fa fa-chevron-right"></i>
+              <a href="/django-summary.html" rel="prev" title="Django总结">
+                Django总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -598,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">1.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-事务"><span class="nav-number">1.1.</span> <span class="nav-text">1. 事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Django的ORM实现数据库事务操作"><span class="nav-number">1.2.</span> <span class="nav-text">2. Django的ORM实现数据库事务操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Redis"><span class="nav-number">1.3.</span> <span class="nav-text">3. Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis是什么？"><span class="nav-number">1.3.1.</span> <span class="nav-text">Redis是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis特点"><span class="nav-number">1.3.2.</span> <span class="nav-text">Redis特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis缺点"><span class="nav-number">1.3.3.</span> <span class="nav-text">Redis缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-数据库引擎"><span class="nav-number">1.4.</span> <span class="nav-text">4. 数据库引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-请简述对左连接、右连接以及内连接的理解"><span class="nav-number">1.5.</span> <span class="nav-text">5. 请简述对左连接、右连接以及内连接的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Redis和MySQL的事务有什么区别？"><span class="nav-number">1.6.</span> <span class="nav-text">6. Redis和MySQL的事务有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-MySQL数据库的优化"><span class="nav-number">1.7.</span> <span class="nav-text">7. MySQL数据库的优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Redis和MySQL的区别"><span class="nav-number">1.8.</span> <span class="nav-text">8. Redis和MySQL的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-描述下表与视图的理解"><span class="nav-number">1.9.</span> <span class="nav-text">9. 描述下表与视图的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-索引有什么作用？有哪些分类？有什么好处和坏处？"><span class="nav-number">1.10.</span> <span class="nav-text">10. 索引有什么作用？有哪些分类？有什么好处和坏处？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">1.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-事务"><span class="nav-number">1.1.</span> <span class="nav-text">1. 事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Django的ORM实现数据库事务操作"><span class="nav-number">1.2.</span> <span class="nav-text">2. Django的ORM实现数据库事务操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Redis"><span class="nav-number">1.3.</span> <span class="nav-text">3. Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis是什么？"><span class="nav-number">1.3.1.</span> <span class="nav-text">Redis是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis特点"><span class="nav-number">1.3.2.</span> <span class="nav-text">Redis特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis缺点"><span class="nav-number">1.3.3.</span> <span class="nav-text">Redis缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-数据库引擎"><span class="nav-number">1.4.</span> <span class="nav-text">4. 数据库引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简述MyISAM与InnoDB区别"><span class="nav-number">1.4.1.</span> <span class="nav-text">简述MyISAM与InnoDB区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-请简述对左连接、右连接以及内连接的理解"><span class="nav-number">1.5.</span> <span class="nav-text">5. 请简述对左连接、右连接以及内连接的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Redis和MySQL的事务有什么区别？"><span class="nav-number">1.6.</span> <span class="nav-text">6. Redis和MySQL的事务有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-MySQL数据库的优化"><span class="nav-number">1.7.</span> <span class="nav-text">7. MySQL数据库的优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Redis和MySQL的区别"><span class="nav-number">1.8.</span> <span class="nav-text">8. Redis和MySQL的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-描述下表与视图的理解"><span class="nav-number">1.9.</span> <span class="nav-text">9. 描述下表与视图的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-索引有什么作用？有哪些分类？有什么好处和坏处？"><span class="nav-number">1.10.</span> <span class="nav-text">10. 索引有什么作用？有哪些分类？有什么好处和坏处？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库练习"><span class="nav-number">1.11.</span> <span class="nav-text">数据库练习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#写SQL语句，对下面两张表实现处理"><span class="nav-number">1.11.1.</span> <span class="nav-text">写SQL语句，对下面两张表实现处理</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
