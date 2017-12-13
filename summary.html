@@ -93,7 +93,7 @@
 <meta property="og:site_name" content="maple-shaw">
 <meta property="og:description" content="简述函数式编程&amp;emsp;&amp;emsp;在函数式编程中，函数是基本单位，变量只是一个名称，而不是一个存储单元。函数式编程使用一系列的函数解决问题。函数仅接受输入并产生输出，不包含任何能影响产生输出的内部状态。除了匿名函数外，Python还使用filter(),map(),reduce(),apply()函数来支持函数式编程。查看更多 什么是匿名函数？有什么好处？有什么局限性？匿名函数，也就是lamb">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-12T06:14:26.723Z">
+<meta property="og:updated_time" content="2017-12-12T08:21:51.909Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python语言特性">
 <meta name="twitter:description" content="简述函数式编程&amp;emsp;&amp;emsp;在函数式编程中，函数是基本单位，变量只是一个名称，而不是一个存储单元。函数式编程使用一系列的函数解决问题。函数仅接受输入并产生输出，不包含任何能影响产生输出的内部状态。除了匿名函数外，Python还使用filter(),map(),reduce(),apply()函数来支持函数式编程。查看更多 什么是匿名函数？有什么好处？有什么局限性？匿名函数，也就是lamb">
@@ -403,11 +403,12 @@
 <p>re.match(pattern,string[,flags])，检查string的开头是否与pattern匹配，返回对象，.group查看。<br>re.search(pattern,string[,flags])，在string搜索pattern的第一个匹配值，返回对象，.group查看。<br>re.findall(pattern,string[,flags])，匹配所有项，返回一个所有匹配项的集合。</p>
 </blockquote>
 <p><a href="http://www.cnblogs.com/maple-shaw/p/7081016.html" target="_blank" rel="external">re模块</a></p>
-<h3 id="Python的内存泄露和循环引用"><a href="#Python的内存泄露和循环引用" class="headerlink" title="Python的内存泄露和循环引用"></a>Python的内存泄露和循环引用</h3><p>内存泄露的情况：</p>
+<h3 id="Python的内存泄露和循环引用"><a href="#Python的内存泄露和循环引用" class="headerlink" title="Python的内存泄露和循环引用"></a>Python的内存泄露和循环引用</h3><p>内存泄露的情况：<br>在没有禁用垃圾回收的前提下，</p>
 <ol>
 <li>对象被另一个生命周期特别长的对象所引用；</li>
-<li>循环引用中的对象定义了<strong>del</strong>函数。<br><a href="http://www.cnblogs.com/xybaby/p/7491656.html" target="_blank" rel="external">详解</a></li>
+<li>循环引用中的对象定义了<strong>del</strong>函数。</li>
 </ol>
+<p>使用gc module、objgraph可以定位内存泄露，定位之后，解决很简单。但必须先禁用垃圾回收（调用gc.disable()），防止误差。<br><a href="http://www.cnblogs.com/xybaby/p/7491656.html" target="_blank" rel="external">详解</a></p>
 <h3 id="Python中的-property有什么作用-如何实现成员变量的只读属性？"><a href="#Python中的-property有什么作用-如何实现成员变量的只读属性？" class="headerlink" title="Python中的@property有什么作用?如何实现成员变量的只读属性？"></a>Python中的@property有什么作用?如何实现成员变量的只读属性？</h3><p>@property装饰器就是负责把一个方法变成属性调用，通常用在属性的get方法和set方法，通过设置@property可以实现实例成员变量的直接访问，又保留了参数的检查。另外通过设置get方法而不定义set方法可以实现成员变量的只读属性。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, val)</span>:</span></span><br><span class="line">        self.__NAME = val  <span class="comment"># 将所有的数据属性都隐藏起来</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">name</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__NAME  <span class="comment"># obj.name访问的是self.__NAME(这也是真实值的存放位置)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @name.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">name</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> isinstance(value, str):  <span class="comment"># 在设定值之前进行类型检查</span></span><br><span class="line">            <span class="keyword">raise</span> TypeError(<span class="string">'%s must be str'</span> % value)</span><br><span class="line">        self.__NAME = value  <span class="comment"># 通过类型检查后,将值value存放到真实的位置self.__NAME</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @name.deleter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">name</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">raise</span> TypeError(<span class="string">'Can not delete'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f = Foo(<span class="string">'egon'</span>)</span><br><span class="line">print(f.name)</span><br><span class="line"><span class="comment"># f.name=10 #抛出异常'TypeError: 10 must be str'</span></span><br><span class="line"><span class="keyword">del</span> f.name  <span class="comment"># 抛出异常'TypeError: Can not delete'</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="args-and-kwargs-代表什么意思？我们为什么要使用它们？"><a href="#args-and-kwargs-代表什么意思？我们为什么要使用它们？" class="headerlink" title="*args and **kwargs 代表什么意思？我们为什么要使用它们？"></a>*args and **kwargs 代表什么意思？我们为什么要使用它们？</h3><p>*args代表任意多个位置参数，args是一个tuple。它会接收任意多个参数并把这些参数作为元组传递给函数。<br>**kwargs代表的任意多个关键字参数，kwargs是一个dict。允许你使用没有事先定义的参数名，另外，位置参数一定要放在关键字参数的前面。<br>它们是可变参数，当函数的参数个数不确定时，就可以使用它们。</p>
 <h3 id="有用过with-statement吗？它的好处是什么？具体如何实现？"><a href="#有用过with-statement吗？它的好处是什么？具体如何实现？" class="headerlink" title="有用过with statement吗？它的好处是什么？具体如何实现？"></a>有用过with statement吗？它的好处是什么？具体如何实现？</h3><p>with语句适用于对资源进行访问的场合，确保不管使用过程中是否发生异常都会执行必要的“清理”操作，释放资源。比如文件使用后自动关闭、线程中锁的自动获取和释放等。</p>
@@ -458,7 +459,7 @@
 <p>__foo:这个有真正的意义:解析器用_classname__foo来代替这个名字,以区别和其他类相同的命名,它无法直接像公有成员一样随便访问,通过对象名._类名__xxx这样的方式可以访问.</p>
 <h3 id="字符串格式化：-和-format"><a href="#字符串格式化：-和-format" class="headerlink" title="字符串格式化：%和.format"></a>字符串格式化：%和.format</h3><p>.format在许多方面看起来更便利.<br>对于%最烦人的是它无法同时传递一个变量和元组.</p>
 <p>“hi there %s” % name<br>如果name恰好是(1,2,3),它将会抛出一个TypeError异常.为了保证它总是正确的,你必须这样做:<br>“hi there %s” % (name,)   # 提供一个单元素的数组而不是一个参数</p>
-<h3 id="迭代器和生成器"><a href="#迭代器和生成器" class="headerlink" title="迭代器和生成器"></a>迭代器和生成器</h3><p>迭代：就是重复，下一次的重复是基于上一次的结果。<br>Python对象中有__iter__方法的称为可迭代对象。</p>
+<h3 id="迭代器和生成器"><a href="#迭代器和生成器" class="headerlink" title="迭代器和生成器"></a>迭代器和生成器</h3><p>迭代：就是重复，下一次的重复是基于上一次的结果。<br>Python对象中有__iter__方法并且返回一个迭代器的称为可迭代对象。</p>
 <p>用for循环的有两种数据类型：</p>
 <blockquote>
 <ol>
@@ -598,7 +599,8 @@
 <h3 id="简单描述GIL对Python性能的影响"><a href="#简单描述GIL对Python性能的影响" class="headerlink" title="简单描述GIL对Python性能的影响"></a>简单描述GIL对Python性能的影响</h3><p>GIL是一把加在CPython解释器上的全局解释器锁（加在进程上）<br>影响：无论启多少个线程，有多少个CPU，Python在执行一个进程的时候在同一时刻只允许一个线程运行，所以CPython是利用多核CPU实现多线程的。Python对于计算密集型的任务开多线程的效率不如串行（没有大量切换）。对于IO密集型任务效率还是有显著提升的。</p>
 <h3 id="Python性能优化的建议"><a href="#Python性能优化的建议" class="headerlink" title="Python性能优化的建议"></a>Python性能优化的建议</h3><ol>
 <li>优化算法时间复杂度</li>
-<li>减少冗余数据<br>3<code>.</code>合理使用copy和deepcopy</li>
+<li>减少冗余数据</li>
+<li>合理使用copy和deepcopy</li>
 <li>使用dict或set查找元素</li>
 <li>合理使用生成器（generator）和yield</li>
 <li>优化循环，循环外能做的事不要放循环内</li>
