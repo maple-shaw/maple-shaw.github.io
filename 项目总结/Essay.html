@@ -86,17 +86,17 @@
 
 
 
-<meta name="description" content="Web框架对比 Django 重武器，包含了许多组件的框架。如：ORM、session、form、admin、分页、中间件、信号、缓存、contenttype Tornado WebSocket，异步非阻塞    Flask     无，开源组件较多  说说你对多线程、多进程、协程的了解 线程和进程都是真实存在的，协程是人为定义的。 进程的定义是具有一定独立功能关于某个数据集合上的一次运行活动。线">
+<meta name="description" content="什么时候用了函数的默认参数是空列表[]写客户管理系统的时候，给每个URL分权限的时候，先获取Django所有的URL，写了一个函数，一个默认参数是空列表，递归获取URL并加入到同一个列表内。 深拷贝在哪用过？CRM的组合筛选，生成筛选按钮，根据当前的URL给筛选的按钮配上不同的URL，每次就拷贝了一份再修改的参数。 用过哪些装饰器？ 自己写admin的时候给每个视图函数 赋值self.reques">
 <meta property="og:type" content="article">
 <meta property="og:title" content="随笔">
 <meta property="og:url" content="http://mapleshaw.cn/项目总结/Essay.html">
 <meta property="og:site_name" content="maple-shaw">
-<meta property="og:description" content="Web框架对比 Django 重武器，包含了许多组件的框架。如：ORM、session、form、admin、分页、中间件、信号、缓存、contenttype Tornado WebSocket，异步非阻塞    Flask     无，开源组件较多  说说你对多线程、多进程、协程的了解 线程和进程都是真实存在的，协程是人为定义的。 进程的定义是具有一定独立功能关于某个数据集合上的一次运行活动。线">
+<meta property="og:description" content="什么时候用了函数的默认参数是空列表[]写客户管理系统的时候，给每个URL分权限的时候，先获取Django所有的URL，写了一个函数，一个默认参数是空列表，递归获取URL并加入到同一个列表内。 深拷贝在哪用过？CRM的组合筛选，生成筛选按钮，根据当前的URL给筛选的按钮配上不同的URL，每次就拷贝了一份再修改的参数。 用过哪些装饰器？ 自己写admin的时候给每个视图函数 赋值self.reques">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-14T02:42:45.552Z">
+<meta property="og:updated_time" content="2017-12-15T08:46:15.859Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="随笔">
-<meta name="twitter:description" content="Web框架对比 Django 重武器，包含了许多组件的框架。如：ORM、session、form、admin、分页、中间件、信号、缓存、contenttype Tornado WebSocket，异步非阻塞    Flask     无，开源组件较多  说说你对多线程、多进程、协程的了解 线程和进程都是真实存在的，协程是人为定义的。 进程的定义是具有一定独立功能关于某个数据集合上的一次运行活动。线">
+<meta name="twitter:description" content="什么时候用了函数的默认参数是空列表[]写客户管理系统的时候，给每个URL分权限的时候，先获取Django所有的URL，写了一个函数，一个默认参数是空列表，递归获取URL并加入到同一个列表内。 深拷贝在哪用过？CRM的组合筛选，生成筛选按钮，根据当前的URL给筛选的按钮配上不同的URL，每次就拷贝了一份再修改的参数。 用过哪些装饰器？ 自己写admin的时候给每个视图函数 赋值self.reques">
 
 
 
@@ -326,7 +326,81 @@
       
 
       
-        <h3 id="Web框架对比"><a href="#Web框架对比" class="headerlink" title="Web框架对比"></a>Web框架对比</h3><ul>
+        <h3 id="什么时候用了函数的默认参数是空列表"><a href="#什么时候用了函数的默认参数是空列表" class="headerlink" title="什么时候用了函数的默认参数是空列表[]"></a>什么时候用了函数的默认参数是空列表[]</h3><p>写客户管理系统的时候，给每个URL分权限的时候，先获取Django所有的URL，写了一个函数，一个默认参数是空列表，递归获取URL并加入到同一个列表内。</p>
+<h3 id="深拷贝在哪用过？"><a href="#深拷贝在哪用过？" class="headerlink" title="深拷贝在哪用过？"></a>深拷贝在哪用过？</h3><p>CRM的组合筛选，生成筛选按钮，根据当前的URL给筛选的按钮配上不同的URL，每次就拷贝了一份再修改的参数。</p>
+<h3 id="用过哪些装饰器？"><a href="#用过哪些装饰器？" class="headerlink" title="用过哪些装饰器？"></a>用过哪些装饰器？</h3><ol>
+<li>自己写admin的时候给每个视图函数 赋值self.request=request </li>
+<li>@property,把实例方法当属性调用</li>
+<li>简单的登录认证</li>
+<li>Django的csrf的装饰器，视图取消csrf认证，@csrf_exempt，给视图设置csrftoken的cookie，@ensure_csrf_cookie</li>
+</ol>
+<h3 id="用过哪些生成器？"><a href="#用过哪些生成器？" class="headerlink" title="用过哪些生成器？"></a>用过哪些生成器？</h3><p>生成器是函数+yield</p>
+<ol>
+<li>写客户管理系统，获得的数据要进行二次操作，再在模板中循环展示，用的生成器减少循环。</li>
+<li>tornado yield future对象。</li>
+</ol>
+<h3 id="面向对象编程的理解"><a href="#面向对象编程的理解" class="headerlink" title="面向对象编程的理解"></a>面向对象编程的理解</h3><p>面向对象有三大特征：封装、继承、多态</p>
+<ol>
+<li>多态 Python语言是非强类型的，出入的参数可以是多种多样的，本身就是多态的。</li>
+<li>封装 数据的封装，函数的封装，取数据和调用函数都比较方便。</li>
+<li>继承 当前类中没有方法或者属性，就去基类中找。Python还是多继承，新式类的查找顺序是广度优先，经典类的查找顺序是深度优先。</li>
+</ol>
+<h3 id="面向对象在哪里用？"><a href="#面向对象在哪里用？" class="headerlink" title="面向对象在哪里用？"></a>面向对象在哪里用？</h3><ol>
+<li>Django的CBV、中间件、model</li>
+<li>Django REST framework 中的view、版本、认证、权限、限制访问频率</li>
+</ol>
+<h3 id="哪里用过-call-方法"><a href="#哪里用过-call-方法" class="headerlink" title="哪里用过__call__方法"></a>哪里用过__call__方法</h3><ol>
+<li>Django WSGIHandler 程序的入口</li>
+<li>Flask程序的入口</li>
+<li>Django中间件 都要继承一个MiddlewareMixin 其中实现了__call__方法，然后执行的process_request、process_response</li>
+</ol>
+<h3 id="中间件有几个方法？"><a href="#中间件有几个方法？" class="headerlink" title="中间件有几个方法？"></a>中间件有几个方法？</h3><ul>
+<li>process_request(self,request)</li>
+<li>process_view(self, request, callback, callback_args, callback_kwargs)</li>
+<li>process_template_response(self,request,response)</li>
+<li>process_exception(self, request, exception)</li>
+<li>process_response(self, request, response)<br>以上方法的返回值可以是None和HttpResponse对象，如果是None，则继续按照django定义的规则向下执行，如果是HttpResponse对象，则直接将该对象返回给用户。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认配置是7个中间件</span></span><br><span class="line"></span><br><span class="line">MIDDLEWARE = [</span><br><span class="line">    <span class="string">'django.middleware.security.SecurityMiddleware'</span>,                <span class="comment"># 安全</span></span><br><span class="line">    <span class="string">'django.contrib.sessions.middleware.SessionMiddleware'</span>,         <span class="comment"># session</span></span><br><span class="line">    <span class="string">'django.middleware.common.CommonMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.middleware.csrf.CsrfViewMiddleware'</span>,                    <span class="comment"># csrf</span></span><br><span class="line">    <span class="string">'django.contrib.auth.middleware.AuthenticationMiddleware'</span>,      <span class="comment"># 认证</span></span><br><span class="line">    <span class="string">'django.contrib.messages.middleware.MessageMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.middleware.clickjacking.XFrameOptionsMiddleware'</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h3 id="对象的内置方法"><a href="#对象的内置方法" class="headerlink" title="对象的内置方法"></a>对象的内置方法</h3><p>__new__  对象实例化第一个调用的方法，返回一个实例<br>__init__  构造方法，对象的初始化<br>__del__  析构方法，定义了对象被垃圾回收时的行为。</p>
+<p>__str__  调用str()时的行为<br>__repr__  repr()时的行为。repr() 的作用是产生机器可读的输出（大部分情况下，其输出可以作为有效的Python代码），而 str() 则产生人类可读的输出。</p>
+<p>__getattr__(self,name)    查找属性<br>__setattr__(self,key,vale)    设置属性 self._dict__[key]=value #应该使用它<br>__delattr__(self,key)    删除属性  self.__dict__.pop(item)</p>
+<p>__module__ 表示当前操作的对象在那个模块<br>__class__     表示当前操作的对象的类是什么</p>
+<p>__enter__(self) 定义使用 with 声明创建的语句块最开始上下文管理器应该做些什么<br>__exit__(self, exception_type, exception_value, traceback) 定义当 with 声明语句块执行完毕（或终止）时上下文管理器的行为。</p>
+<p>__call__ 允许类的一个实例像函数那样被调用。</p>
+<h3 id="常用的模块"><a href="#常用的模块" class="headerlink" title="常用的模块"></a>常用的模块</h3><ul>
+<li>json</li>
+<li>time </li>
+<li>sys/os</li>
+<li>re </li>
+<li>random</li>
+<li>requests</li>
+<li>beautifulSoup</li>
+</ul>
+<h3 id="什么是socket？什么是Websocket？"><a href="#什么是socket？什么是Websocket？" class="headerlink" title="什么是socket？什么是Websocket？"></a>什么是socket？什么是Websocket？</h3><p>socket又称套接字。网络中的通信需要两个socket，一个客户端，一个服务端。<br><a href="http://blog.csdn.net/sight_/article/details/8138802" target="_blank" rel="external">详解</a></p>
+<p>WebSocket是基于TCP的一种新的协议，它实现了浏览器和服务器的全双工通信。其本质是保持TCP连接，在浏览器和服务端通过Socket进行通信。</p>
+<ol>
+<li>先启动服务端</li>
+<li>客户端发送连接请求 var socket = new WebSocket(“ws://127.0.0.1:8002/“);</li>
+<li>建立连接<ul>
+<li>从请求中提取 Sec-WebSocket-Key</li>
+<li>利用magic_string 和 Sec-WebSocket-Key 进行hmac1加密，再进行base64加密</li>
+<li>将加密结果响应给客户端</li>
+<li>注：magic string为：258EAFA5-E914-47DA-95CA-C5AB0DC85B11</li>
+</ul>
+</li>
+<li>客户端、服务端收发数据（数据要封包和解包） <ul>
+<li>客户端的JavaScript类库已经封装[封包]和[解包]过程，但Socket服务端需要手动实现。</li>
+</ul>
+</li>
+</ol>
+<p>可以基于tornado和websocket实现聊天室的功能</p>
+<ul>
+<li>tornado本身支持websocket</li>
+<li>Handler类需要继承tornado.websocket.WebSocketHandler</li>
+<li>几个方法：open(self) 客户端连接成功时执行。on_message(self, message) 客户端发消息时自动执行。on_close(self) 客户端关闭连接时执行。<br><a href="http://www.cnblogs.com/maple-shaw/p/7989094.html" target="_blank" rel="external">详解</a></li>
+</ul>
+<h3 id="Web框架对比"><a href="#Web框架对比" class="headerlink" title="Web框架对比"></a>Web框架对比</h3><ul>
 <li>Django 重武器，包含了许多组件的框架。如：ORM、session、form、admin、分页、中间件、信号、缓存、contenttype</li>
 <li>Tornado WebSocket，异步非阻塞   </li>
 <li>Flask     无，开源组件较多</li>
@@ -491,7 +565,7 @@ FK（一对多）        菜单和菜单（父级菜单）    权限和菜单（
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -539,7 +613,7 @@ FK（一对多）        菜单和菜单（父级菜单）    权限和菜单（
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Web框架对比"><span class="nav-number">1.</span> <span class="nav-text">Web框架对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说说你对多线程、多进程、协程的了解"><span class="nav-number">2.</span> <span class="nav-text">说说你对多线程、多进程、协程的了解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在线视频平台项目"><span class="nav-number">3.</span> <span class="nav-text">在线视频平台项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户关系管理系统（CRM系统）"><span class="nav-number">4.</span> <span class="nav-text">客户关系管理系统（CRM系统）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资产管理系统"><span class="nav-number">5.</span> <span class="nav-text">资产管理系统</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么时候用了函数的默认参数是空列表"><span class="nav-number">1.</span> <span class="nav-text">什么时候用了函数的默认参数是空列表[]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深拷贝在哪用过？"><span class="nav-number">2.</span> <span class="nav-text">深拷贝在哪用过？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用过哪些装饰器？"><span class="nav-number">3.</span> <span class="nav-text">用过哪些装饰器？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用过哪些生成器？"><span class="nav-number">4.</span> <span class="nav-text">用过哪些生成器？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面向对象编程的理解"><span class="nav-number">5.</span> <span class="nav-text">面向对象编程的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面向对象在哪里用？"><span class="nav-number">6.</span> <span class="nav-text">面向对象在哪里用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哪里用过-call-方法"><span class="nav-number">7.</span> <span class="nav-text">哪里用过__call__方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间件有几个方法？"><span class="nav-number">8.</span> <span class="nav-text">中间件有几个方法？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的内置方法"><span class="nav-number">9.</span> <span class="nav-text">对象的内置方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用的模块"><span class="nav-number">10.</span> <span class="nav-text">常用的模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是socket？什么是Websocket？"><span class="nav-number">11.</span> <span class="nav-text">什么是socket？什么是Websocket？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web框架对比"><span class="nav-number">12.</span> <span class="nav-text">Web框架对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说说你对多线程、多进程、协程的了解"><span class="nav-number">13.</span> <span class="nav-text">说说你对多线程、多进程、协程的了解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在线视频平台项目"><span class="nav-number">14.</span> <span class="nav-text">在线视频平台项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户关系管理系统（CRM系统）"><span class="nav-number">15.</span> <span class="nav-text">客户关系管理系统（CRM系统）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资产管理系统"><span class="nav-number">16.</span> <span class="nav-text">资产管理系统</span></a></li></ol></div>
             
 
           </div>

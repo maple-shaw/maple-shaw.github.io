@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-simple.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="collections的常用类型有：计数器(Counter)双向队列(deque)默认字典(defaultdict)有序字典(OrderedDict)可命名元组(namedtuple)使用以上类型时需要导入模块 from collections import * Counter计数器Counter 作为字典(dict)的一个子类用来进行hashtable计数，将元素进行数量统计、计数后返回一个字典">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Collections模块">
+<meta property="og:url" content="http://mapleshaw.cn/Collections.html">
+<meta property="og:site_name" content="maple-shaw">
+<meta property="og:description" content="collections的常用类型有：计数器(Counter)双向队列(deque)默认字典(defaultdict)有序字典(OrderedDict)可命名元组(namedtuple)使用以上类型时需要导入模块 from collections import * Counter计数器Counter 作为字典(dict)的一个子类用来进行hashtable计数，将元素进行数量统计、计数后返回一个字典">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-15T03:19:58.768Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Collections模块">
+<meta name="twitter:description" content="collections的常用类型有：计数器(Counter)双向队列(deque)默认字典(defaultdict)有序字典(OrderedDict)可命名元组(namedtuple)使用以上类型时需要导入模块 from collections import * Counter计数器Counter 作为字典(dict)的一个子类用来进行hashtable计数，将元素进行数量统计、计数后返回一个字典">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://mapleshaw.cn/Collections.html"/>
+
+
+
+
+
+  <title>Collections模块 | maple-shaw</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">maple-shaw</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mapleshaw.cn/Collections.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maple Shaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="maple-shaw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Collections模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-15T10:26:09+08:00">
+                2017-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>collections的常用类型有：<br>计数器(Counter)<br>双向队列(deque)<br>默认字典(defaultdict)<br>有序字典(OrderedDict)<br>可命名元组(namedtuple)<br>使用以上类型时需要导入模块 from collections import *</p>
+<h3 id="Counter计数器"><a href="#Counter计数器" class="headerlink" title="Counter计数器"></a>Counter计数器</h3><p>Counter 作为字典(dict)的一个子类用来进行hashtable计数，将元素进行数量统计、计数后返回一个字典,键值为元素：值为元素个数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"></span><br><span class="line">s = <span class="string">'abcbcaccbbad'</span></span><br><span class="line">l = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'c'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'b'</span>]</span><br><span class="line">d = &#123;<span class="string">'2'</span>: <span class="number">3</span>, <span class="string">'3'</span>: <span class="number">2</span>, <span class="string">'17'</span>: <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Counter 获取各元素的个数,返回字典</span></span><br><span class="line">print(Counter(s))  <span class="comment"># Counter(&#123;'c': 4, 'b': 4, 'a': 3&#125;)</span></span><br><span class="line">print(Counter(l))  <span class="comment"># Counter(&#123;'b': 3, 'a': 2, 'c': 2&#125;)</span></span><br><span class="line">print(Counter(d))  <span class="comment"># Counter(&#123;3: 3, 2: 2, 17: 1&#125;)</span></span><br></pre></td></tr></table></figure>
+<h4 id="most-common-int-按照元素出现的次数进行从高到低的排序-返回前int个元素的字典"><a href="#most-common-int-按照元素出现的次数进行从高到低的排序-返回前int个元素的字典" class="headerlink" title="most_common(int) 按照元素出现的次数进行从高到低的排序,返回前int个元素的字典"></a>most_common(int) 按照元素出现的次数进行从高到低的排序,返回前int个元素的字典</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"></span><br><span class="line">m1 = Counter(<span class="string">'abcbcaccbbad'</span>)</span><br><span class="line">print(m1)                 <span class="comment"># Counter(&#123;'c': 4, 'b': 4, 'a': 3, 'd': 1&#125;)</span></span><br><span class="line">print(m1.most_common(<span class="number">3</span>))  <span class="comment"># [('c', 4), ('b', 4), ('a', 3)]</span></span><br></pre></td></tr></table></figure>
+<h4 id="elements-返回经过计数器Counter后的元素-返回的是一个迭代器"><a href="#elements-返回经过计数器Counter后的元素-返回的是一个迭代器" class="headerlink" title="elements 返回经过计数器Counter后的元素,返回的是一个迭代器"></a>elements 返回经过计数器Counter后的元素,返回的是一个迭代器</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"></span><br><span class="line">e1 = Counter(<span class="string">'abcbcaccbbad'</span>)</span><br><span class="line">print(e1.elements())                   <span class="comment"># &lt;itertools.chain object at 0x0000000002249828&gt;</span></span><br><span class="line">print(<span class="string">''</span>.join(sorted(e1.elements())))  <span class="comment"># aaabbbbcccc</span></span><br><span class="line"></span><br><span class="line">e2 = Counter(&#123;<span class="string">'2'</span>: <span class="number">3</span>, <span class="string">'3'</span>: <span class="number">2</span>, <span class="string">'17'</span>: <span class="number">2</span>&#125;)</span><br><span class="line">print(sorted(e2.elements()))           <span class="comment"># ['17', '17', '2', '2', '2', '3', '3'] 字典返回value个key</span></span><br></pre></td></tr></table></figure>
+<h4 id="update"><a href="#update" class="headerlink" title="update"></a>update</h4><p>和set集合的update一样,对集合进行并集更新  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"></span><br><span class="line">u1 = Counter(<span class="string">'abcbcaccbbad'</span>)  </span><br><span class="line">u1.update(<span class="string">'123a'</span>)  </span><br><span class="line">print(u1)  <span class="comment"># Counter(&#123;'a': 4, 'c': 4, 'b': 4, '1': 1, '3': 1, '2': 1&#125;)</span></span><br></pre></td></tr></table></figure>
+<h4 id="substract"><a href="#substract" class="headerlink" title="substract"></a>substract</h4><p>和update类似，只是update是做加法，substract做减法,从另一个集合中减去本集合的元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"></span><br><span class="line">sub1 = <span class="string">'which'</span>  </span><br><span class="line">sub2 = <span class="string">'whatw'</span>  </span><br><span class="line">subset = Counter(sub1)  </span><br><span class="line">print(subset)   <span class="comment"># Counter(&#123;'h': 2, 'i': 1, 'c': 1, 'w': 1&#125;)  </span></span><br><span class="line">subset.subtract(Counter(sub2))  </span><br><span class="line">print(subset)   <span class="comment"># Counter(&#123;'c': 1, 'i': 1, 'h': 1, 'a': -1, 't': -1, 'w': -1&#125;) sub1中的h变为2，sub2中h为1,减完以后为1</span></span><br></pre></td></tr></table></figure>
+<h4 id="iteritems"><a href="#iteritems" class="headerlink" title="iteritems"></a>iteritems</h4><p>与字典dict的items类似，返回由Counter生成的字典的所有item,只是在Counter中此方法返回的是一个迭代器,而不是列表</p>
+<p>####iterkeys</p>
+<p>与字典dict的keys方法类似，返回由Counter生成的字典的所有key,只是在Counter中此方法返回的是一个迭代器,而不是列表</p>
+<p>####itervalues</p>
+<p>与字典dict的values方法类似，返回由Counter生成的字典的所有value,只是在Counter中此方法返回的是一个迭代器,而不是列表</p>
+<h3 id="deque双向队列"><a href="#deque双向队列" class="headerlink" title="deque双向队列"></a>deque双向队列</h3><p>deque 包含在文件_collections.py中,属于高性能的数据结构(High performance data structures)之一，可以从两端添加和删除元素,常用的结构是它的简化版。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"></span><br><span class="line">str1 = <span class="string">'abc123cd'</span></span><br><span class="line">dq = deque(str1)</span><br><span class="line">print(dq)  <span class="comment"># deque(['a', 'b', 'c', '1', '2', '3', 'c', 'd'])</span></span><br></pre></td></tr></table></figure>
+<h4 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h4><p>append  队列右边添加元素<br>appendleft   队列列左边添加元素<br>clear 清空队列中的所有元素<br>count 返回队列中包含value的个数<br>extend  队列右边扩展，可以是列表、元组、字典，字典的话只加入key<br>extendleft  同extend, 在左边扩展</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"></span><br><span class="line">dq = deque(<span class="string">'abc123'</span>)  </span><br><span class="line">dq.extend(&#123;<span class="number">1</span>:<span class="number">10</span>,<span class="number">2</span>:<span class="number">20</span>&#125;)  </span><br><span class="line">dq.extendleft(<span class="string">'L'</span>)  </span><br><span class="line">dq.pop()</span><br><span class="line">print(dq) <span class="comment"># deque(['L', 'a', 'b', 'c', '1', '2', '3', 1, 2])</span></span><br></pre></td></tr></table></figure>
+<p>pop 移除并且返回队列右边的元素，不像列表的pop可以传索引删除<br>popleft 移除并且返回队列左边的元素<br>remove(value) 移除队列第一个出现的元素（从左往右开始的第一次出现的元素value)<br>reverse  对原队列的所有元素进行反转，无返回值<br>rotate(n) 对队列的数进行移动,若n<0，则往左移动即将左边的第一个移动到最后,移动n次，n>0 往右移动</0，则往左移动即将左边的第一个移动到最后,移动n次，n></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"></span><br><span class="line">dq = deque([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">dq.rotate(<span class="number">-1</span>)  <span class="comment"># 左移,1往左移动一位到5后面</span></span><br><span class="line">print(dq)      <span class="comment"># deque([2, 3, 4, 5, 1])</span></span><br></pre></td></tr></table></figure>
+<h3 id="defaultdict默认字典"><a href="#defaultdict默认字典" class="headerlink" title="defaultdict默认字典"></a>defaultdict默认字典</h3><p>默认字典，是字典的一个子类，继承有字典的方法和属性，默认字典在进行定义初始化的时候可以指定字典的默认类型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line">dic = defaultdict(list)     <span class="comment"># 元素默认类型为列表</span></span><br><span class="line">dic[<span class="string">'k1'</span>] = [<span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">dic[<span class="string">'k2'</span>].append(<span class="number">1</span>)</span><br><span class="line">print(dic)</span><br><span class="line"></span><br><span class="line">dic = defaultdict(dict)     <span class="comment"># 元素默认类型为字典</span></span><br><span class="line">dic[<span class="string">'k1'</span>].update(&#123;<span class="string">'k2'</span>: <span class="string">'aaa'</span>&#125;)</span><br><span class="line">print(dic)</span><br></pre></td></tr></table></figure>
+<h3 id="OrderedDict有序字典"><a href="#OrderedDict有序字典" class="headerlink" title="OrderedDict有序字典"></a>OrderedDict有序字典</h3><p>OrderDict 叫做有序字典,也是字典类型(dict)的一个子类,是对字典的一个补充。<br>传统字典是无序的，要排序的话，需要将字典的key取出进行排序，再输出打印。<br>有序字典的顺序将按照录入顺序进行排序且不会改变。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict</span><br><span class="line"></span><br><span class="line">dic2 = OrderedDict()</span><br><span class="line">dic2[<span class="string">'a'</span>] = <span class="string">'123'</span></span><br><span class="line">dic2[<span class="string">'b'</span>] = <span class="string">'jjj'</span></span><br><span class="line">dic2[<span class="string">'c'</span>] = <span class="string">'abc'</span></span><br><span class="line">dic2[<span class="string">'d'</span>] = <span class="string">'999'</span></span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> dic2.items():</span><br><span class="line">    print(<span class="string">'有序字典：%s:%s'</span> % (k, v))</span><br><span class="line">    </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">有序字典：a:123</span></span><br><span class="line"><span class="string">有序字典：b:jjj</span></span><br><span class="line"><span class="string">有序字典：c:abc</span></span><br><span class="line"><span class="string">有序字典：d:999</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<h3 id="nametuple有名元组"><a href="#nametuple有名元组" class="headerlink" title="nametuple有名元组"></a>nametuple有名元组</h3><p>标准的tuple类型使用数字索引来访问元素，元素多的时候，无法知道每个元素的索引。<br>nametuple 的创建是由自己的类工厂nametuple()进行创建,而不是由标准的元组来进行实例化，通过nametuple()创建类的参数包括类名称和一个包含元素名称的字符串。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/summary.html" rel="next" title="Python语言特性">
+                <i class="fa fa-chevron-left"></i> Python语言特性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="Maple Shaw" />
+            
+              <p class="site-author-name" itemprop="name">Maple Shaw</p>
+              <p class="site-description motion-element" itemprop="description">Never mind the past, never fear the future.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Counter计数器"><span class="nav-number">1.</span> <span class="nav-text">Counter计数器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#most-common-int-按照元素出现的次数进行从高到低的排序-返回前int个元素的字典"><span class="nav-number">1.1.</span> <span class="nav-text">most_common(int) 按照元素出现的次数进行从高到低的排序,返回前int个元素的字典</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#elements-返回经过计数器Counter后的元素-返回的是一个迭代器"><span class="nav-number">1.2.</span> <span class="nav-text">elements 返回经过计数器Counter后的元素,返回的是一个迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#update"><span class="nav-number">1.3.</span> <span class="nav-text">update</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#substract"><span class="nav-number">1.4.</span> <span class="nav-text">substract</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iteritems"><span class="nav-number">1.5.</span> <span class="nav-text">iteritems</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deque双向队列"><span class="nav-number">2.</span> <span class="nav-text">deque双向队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用方法"><span class="nav-number">2.1.</span> <span class="nav-text">常用方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#defaultdict默认字典"><span class="nav-number">3.</span> <span class="nav-text">defaultdict默认字典</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OrderedDict有序字典"><span class="nav-number">4.</span> <span class="nav-text">OrderedDict有序字典</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nametuple有名元组"><span class="nav-number">5.</span> <span class="nav-text">nametuple有名元组</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Maple Shaw</span>
+  <span id="busuanzi_container_site_pv" style="display: inline;">
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+	本站访客数 <span id="busuanzi_value_site_uv"></span>人次
+  </span>
+  
+</div>
+
+
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
