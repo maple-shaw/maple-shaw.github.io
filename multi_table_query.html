@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-simple.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="建表12345678910111213141516171819202122232425262728create table department(id int,name varchar(20) );create table employee(id int primary key auto_increment,name varchar(20),sex enum(&apos;male&apos;,&apos;female&apos;) no">
+<meta property="og:type" content="article">
+<meta property="og:title" content="multi_table_query">
+<meta property="og:url" content="http://mapleshaw.cn/multi_table_query.html">
+<meta property="og:site_name" content="maple-shaw">
+<meta property="og:description" content="建表12345678910111213141516171819202122232425262728create table department(id int,name varchar(20) );create table employee(id int primary key auto_increment,name varchar(20),sex enum(&apos;male&apos;,&apos;female&apos;) no">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-18T07:21:56.217Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="multi_table_query">
+<meta name="twitter:description" content="建表12345678910111213141516171819202122232425262728create table department(id int,name varchar(20) );create table employee(id int primary key auto_increment,name varchar(20),sex enum(&apos;male&apos;,&apos;female&apos;) no">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://mapleshaw.cn/multi_table_query.html"/>
+
+
+
+
+
+  <title>multi_table_query | maple-shaw</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">maple-shaw</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">�������飬���Լ��������£����Լ��������£�</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mapleshaw.cn/multi_table_query.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maple Shaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="maple-shaw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">multi_table_query</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-18T13:28:09+08:00">
+                2017-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="建表"><a href="#建表" class="headerlink" title="建表"></a>建表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> department(</span><br><span class="line"><span class="keyword">id</span> <span class="built_in">int</span>,</span><br><span class="line"><span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>) </span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> employee(</span><br><span class="line"><span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line"><span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>),</span><br><span class="line">sex enum(<span class="string">'male'</span>,<span class="string">'female'</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="string">'male'</span>,</span><br><span class="line">age <span class="built_in">int</span>,</span><br><span class="line">dep_id <span class="built_in">int</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">#插入数据</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> department <span class="keyword">values</span></span><br><span class="line">(<span class="number">200</span>,<span class="string">'技术'</span>),</span><br><span class="line">(<span class="number">201</span>,<span class="string">'人力资源'</span>),</span><br><span class="line">(<span class="number">202</span>,<span class="string">'销售'</span>),</span><br><span class="line">(<span class="number">203</span>,<span class="string">'运营'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> employee(<span class="keyword">name</span>,sex,age,dep_id) <span class="keyword">values</span></span><br><span class="line">(<span class="string">'egon'</span>,<span class="string">'male'</span>,<span class="number">18</span>,<span class="number">200</span>),</span><br><span class="line">(<span class="string">'alex'</span>,<span class="string">'female'</span>,<span class="number">48</span>,<span class="number">201</span>),</span><br><span class="line">(<span class="string">'wupeiqi'</span>,<span class="string">'male'</span>,<span class="number">38</span>,<span class="number">201</span>),</span><br><span class="line">(<span class="string">'yuanhao'</span>,<span class="string">'female'</span>,<span class="number">28</span>,<span class="number">202</span>),</span><br><span class="line">(<span class="string">'liwenzhou'</span>,<span class="string">'male'</span>,<span class="number">18</span>,<span class="number">200</span>),</span><br><span class="line">(<span class="string">'jingliyang'</span>,<span class="string">'female'</span>,<span class="number">18</span>,<span class="number">204</span>)</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<h3 id="多表连接查询"><a href="#多表连接查询" class="headerlink" title="多表连接查询"></a>多表连接查询</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 字段列表</span><br><span class="line">    <span class="keyword">FROM</span> 表<span class="number">1</span> <span class="keyword">INNER</span>|<span class="keyword">LEFT</span>|<span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> 表<span class="number">2</span></span><br><span class="line">    <span class="keyword">ON</span> 表<span class="number">1.</span>字段 = 表<span class="number">2.</span>字段;</span><br></pre></td></tr></table></figure>
+<h4 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h4><p>只连接匹配的行<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> employee.id,employee.name,employee.age,employee.sex,department.name <span class="keyword">FROM</span> employee <span class="keyword">INNER</span> <span class="keyword">JOIN</span> department <span class="keyword">ON</span> employee.dep_id=department.id; </span><br><span class="line"></span><br><span class="line">#+----+-----------+------+--------+----------+</span><br><span class="line">#| id | name      | age  | sex    | name     |</span><br><span class="line">#+----+-----------+------+--------+----------+</span><br><span class="line">#|  1 | egon      |   18 | male   | 技术      |</span><br><span class="line">#|  2 | alex      |   48 | female | 人力资源  |</span><br><span class="line">#|  3 | wupeiqi   |   38 | male   | 人力资源  |</span><br><span class="line">#|  4 | yunhao    |   28 | female | 销售      |</span><br><span class="line">#|  5 | liwenzhou |   18 | male   | 技术      |</span><br><span class="line">#+----+-----------+------+--------+----------+</span><br><span class="line"></span><br><span class="line"># 上述sql等同于</span><br><span class="line"><span class="keyword">SELECT</span> employee.id,employee.name,employee.age,employee.sex,department.name <span class="keyword">FROM</span> employee,department <span class="keyword">WHERE</span> employee.dep_id=department.id;</span><br></pre></td></tr></table></figure></p>
+<h4 id="外连接之左连接"><a href="#外连接之左连接" class="headerlink" title="外连接之左连接"></a>外连接之左连接</h4><p>以左表为准，即找出所有员工信息，当然包括没有部门的员工<br>本质就是：在内连接的基础上增加左边有右边没有的结果，优先显示左表内容</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> employee.id,employee.name,department.name <span class="keyword">AS</span> depart_name <span class="keyword">FROM</span> employee <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> department <span class="keyword">ON</span> employee.dep_id=department.id;</span><br><span class="line"></span><br><span class="line">#+----+------------+-------------+</span><br><span class="line">#| id | name       | depart_name |</span><br><span class="line">#+----+------------+-------------+</span><br><span class="line">#|  1 | egon       | 技术        |</span><br><span class="line">#|  5 | liwenzhou  | 技术        |</span><br><span class="line">#|  2 | alex       | 人力资源    |</span><br><span class="line">#|  3 | wupeiqi    | 人力资源    |</span><br><span class="line">#|  4 | yunhao     | 销售        |</span><br><span class="line">#|  6 | jingliyang | NULL        |</span><br><span class="line">#+----+------------+-------------+</span><br></pre></td></tr></table></figure>
+<h4 id="外链接之右连接"><a href="#外链接之右连接" class="headerlink" title="外链接之右连接"></a>外链接之右连接</h4><p>以右表为准，即找出所有部门信息，包括没有员工的部门<br>本质就是：在内连接的基础上增加右边有左边没有的结果,优先显示右表全部内容</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> employee.id,employee.name,department.name <span class="keyword">AS</span> depart_name <span class="keyword">FROM</span> employee <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> department <span class="keyword">ON</span> employee.dep_id=department.id;</span><br><span class="line"></span><br><span class="line">#+----+------------+-------------+</span><br><span class="line">#| id | name       | depart_name |</span><br><span class="line">#+----+------------+-------------+</span><br><span class="line">#|  1 | egon       | 技术        |</span><br><span class="line">#|  5 | liwenzhou  | 技术        |</span><br><span class="line">#|  2 | alex       | 人力资源    |</span><br><span class="line">#|  3 | wupeiqi    | 人力资源    |</span><br><span class="line">#|  4 | yunhao     | 销售        |</span><br><span class="line">#|  6 | jingliyang | NULL        |</span><br><span class="line">#+----+------------+-------------+</span><br></pre></td></tr></table></figure>
+<h4 id="全外连接"><a href="#全外连接" class="headerlink" title="全外连接"></a>全外连接</h4><p>mysql<em>不支持</em>全外连接 full JOIN</p>
+<p>全外连接：在内连接的基础上增加左边有右边没有的和右边有左边没有的结果<br>mysql可以使用此种方式间接实现全外连接</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employee <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> department <span class="keyword">ON</span> employee.dep_id = department.id</span><br><span class="line"><span class="keyword">UNION</span> </span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employee <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> department <span class="keyword">ON</span> employee.dep_id = department.id</span><br><span class="line">;</span><br><span class="line"></span><br><span class="line">#+------+------------+--------+------+--------+------+----------+</span><br><span class="line">#| id   | name       | sex    | age  | dep_id | id   | name     |</span><br><span class="line">#+------+------------+--------+------+--------+------+----------+</span><br><span class="line">#|    1 | egon       | male   |   18 |    200 |  200 | 技术     |</span><br><span class="line">#|    5 | liwenzhou  | male   |   18 |    200 |  200 | 技术     |</span><br><span class="line">#|    2 | alex       | female |   48 |    201 |  201 | 人力资源 |</span><br><span class="line">#|    3 | wupeiqi    | male   |   38 |    201 |  201 | 人力资源 |</span><br><span class="line">#|    4 | yunhao     | female |   28 |    202 |  202 | 销售     |</span><br><span class="line">#|    6 | jingliyang | female |   18 |    204 | NULL | NULL     |</span><br><span class="line">#| NULL | NULL       | NULL   | NULL |   NULL |  203 | 运营     |</span><br><span class="line">#+------+------------+--------+------+--------+------+----------+</span><br></pre></td></tr></table></figure>
+<p>注意 union与union all的区别：union会去掉相同的纪录</p>
+<h3 id="符合条件连接查询"><a href="#符合条件连接查询" class="headerlink" title="符合条件连接查询"></a>符合条件连接查询</h3><p>以内连接的方式查询employee和department表，并且employee表中的age字段值必须大于25,即找出年龄大于25岁的员工以及员工所在的部门<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> employee.name,department.name <span class="keyword">FROM</span> employee <span class="keyword">INNER</span> <span class="keyword">JOIN</span> department</span><br><span class="line">    <span class="keyword">ON</span> employee.dep_id = department.id</span><br><span class="line">    <span class="keyword">WHERE</span> age &gt; <span class="number">25</span>;</span><br></pre></td></tr></table></figure></p>
+<p>以内连接的方式查询employee和department表，并且以age字段的升序方式显示</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> employee.id,employee.name,employee.age,department.name <span class="keyword">FROM</span> employee <span class="keyword">INNER</span> <span class="keyword">JOIN</span> department</span><br><span class="line">    <span class="keyword">ON</span> employee.dep_id = department.id</span><br><span class="line">    <span class="keyword">WHERE</span> age &gt; <span class="number">25</span></span><br><span class="line">    <span class="keyword">ORDER</span> <span class="keyword">BY</span> age <span class="keyword">ASC</span> ;</span><br></pre></td></tr></table></figure>
+<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>1：子查询是将一个查询语句嵌套在另一个查询语句中。<br>2：内层查询语句的查询结果，可以为外层查询语句提供查询条件。<br>3：子查询中可以包含：IN、NOT IN、ANY、ALL、EXISTS 和 NOT EXISTS等关键字<br>4：还可以包含比较运算符：= 、 !=、&gt; 、&lt;等</p>
+<h4 id="带IN关键字的子查询"><a href="#带IN关键字的子查询" class="headerlink" title="带IN关键字的子查询"></a>带IN关键字的子查询</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 查询平均年龄在25岁以上的部门名</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>,<span class="keyword">name</span> <span class="keyword">FROM</span> department </span><br><span class="line">    <span class="keyword">WHERE</span> <span class="keyword">id</span> <span class="keyword">in</span> (<span class="keyword">SELECT</span> dep_id <span class="keyword">FROM</span> employee <span class="keyword">GROUP</span> <span class="keyword">BY</span> dep_id <span class="keyword">HAVING</span> <span class="keyword">avg</span>(age)&gt;<span class="number">25</span>);</span><br><span class="line"></span><br><span class="line"># 查看技术部员工姓名</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span> <span class="keyword">FROM</span> employee</span><br><span class="line">    <span class="keyword">WHERE</span> dep_id <span class="keyword">IN</span> </span><br><span class="line">        (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> department <span class="keyword">WHERE</span> <span class="keyword">name</span>=<span class="string">'技术'</span>);</span><br><span class="line">        </span><br><span class="line"># 查看不足1人的部门名     </span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span> <span class="keyword">FROM</span> department</span><br><span class="line">    <span class="keyword">WHERE</span> <span class="keyword">id</span> <span class="keyword">IN</span> </span><br><span class="line">        (<span class="keyword">SELECT</span> dep_id <span class="keyword">FROM</span> employee <span class="keyword">GROUP</span> <span class="keyword">BY</span> dep_id <span class="keyword">HAVING</span> <span class="keyword">count</span>(<span class="keyword">id</span>) &lt;=<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="带比较运算符的子查询"><a href="#带比较运算符的子查询" class="headerlink" title="带比较运算符的子查询"></a>带比较运算符的子查询</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 查询大于所有人平均年龄的员工名与年龄</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>,age <span class="keyword">FROM</span> emp <span class="keyword">WHERE</span> age &gt; (<span class="keyword">SELECT</span> <span class="keyword">avg</span>(age) <span class="keyword">FROM</span> emp);</span><br><span class="line"></span><br><span class="line"># 查询大于部门内平均年龄的员工名、年龄</span><br><span class="line"><span class="keyword">SELECT</span> t1.name,t1.age <span class="keyword">from</span> emp t1</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> </span><br><span class="line">(<span class="keyword">SELECT</span> dep_id,<span class="keyword">avg</span>(age) avg_age <span class="keyword">FROM</span> emp <span class="keyword">GROUP</span> <span class="keyword">BY</span> dep_id) t2</span><br><span class="line"><span class="keyword">on</span> t1.dep_id = t2.dep_id</span><br><span class="line"><span class="keyword">where</span> t1.age &gt; t2.avg_age;</span><br></pre></td></tr></table></figure>
+<h4 id="带EXISTS关键字的子查询"><a href="#带EXISTS关键字的子查询" class="headerlink" title="带EXISTS关键字的子查询"></a>带EXISTS关键字的子查询</h4><p>EXISTS关字键字表示存在。在使用EXISTS关键字时，内层查询语句不返回查询的记录。<br>而是返回一个真假值。True或False<br>当返回True时，外层查询语句将进行查询；当返回值为False时，外层查询语句不进行查询。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># department表中存在dept_id=203,Ture</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> employee</span><br><span class="line">    <span class="keyword">WHERE</span> <span class="keyword">exists</span></span><br><span class="line">         (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> department <span class="keyword">WHERE</span> <span class="keyword">id</span>=<span class="number">200</span>);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Python_model/logging.html" rel="next" title="Python中的logging配置">
+                <i class="fa fa-chevron-left"></i> Python中的logging配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="Maple Shaw" />
+            
+              <p class="site-author-name" itemprop="name">Maple Shaw</p>
+              <p class="site-description motion-element" itemprop="description">Never mind the past, never fear the future.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/maple-shaw" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#建表"><span class="nav-number">1.</span> <span class="nav-text">建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多表连接查询"><span class="nav-number">2.</span> <span class="nav-text">多表连接查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内连接"><span class="nav-number">2.1.</span> <span class="nav-text">内连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外连接之左连接"><span class="nav-number">2.2.</span> <span class="nav-text">外连接之左连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外链接之右连接"><span class="nav-number">2.3.</span> <span class="nav-text">外链接之右连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全外连接"><span class="nav-number">2.4.</span> <span class="nav-text">全外连接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#符合条件连接查询"><span class="nav-number">3.</span> <span class="nav-text">符合条件连接查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子查询"><span class="nav-number">4.</span> <span class="nav-text">子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#带IN关键字的子查询"><span class="nav-number">4.1.</span> <span class="nav-text">带IN关键字的子查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#带比较运算符的子查询"><span class="nav-number">4.2.</span> <span class="nav-text">带比较运算符的子查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#带EXISTS关键字的子查询"><span class="nav-number">4.3.</span> <span class="nav-text">带EXISTS关键字的子查询</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Maple Shaw</span>
+  <span id="busuanzi_container_site_pv" style="display: inline;">
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+	本站访客数 <span id="busuanzi_value_site_uv"></span>人次
+  </span>
+  
+</div>
+
+
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
