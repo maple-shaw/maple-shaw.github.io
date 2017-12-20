@@ -86,21 +86,20 @@
 
 
 
-<meta name="description" content="描述下MVC架构MVC 是一种使用 MVC（Model View Controller 模型-视图-控制器）设计创建 Web 应用程序的模式:  Model（模型）表示应用程序核心（比如数据库记录列表）。 View（视图）显示数据（数据库记录）。 Controller（控制器）处理输入（写入数据库记录）。  MVC 模式同时提供了对 HTML、CSS 和 JavaScript 的完全控制。Mode">
+<meta name="description" content="Django rest framework中请求的生命周期 项目开展URlhttp://127.0.0.1:8002/v1/api/route/GET: 查询（列表）POST： 增加url(r’^(?P&amp;lt;version&amp;gt;\w+)/api/route/$’, views.RouteView.as_view()),url(r’^(?P&amp;lt;version&amp;gt;\w+)/api/rout">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Django总结">
-<meta property="og:url" content="http://mapleshaw.cn/django-summary.html">
+<meta property="og:title" content="Django rest framework总结">
+<meta property="og:url" content="http://mapleshaw.cn/django-rest-framework.html">
 <meta property="og:site_name" content="maple-shaw">
-<meta property="og:description" content="描述下MVC架构MVC 是一种使用 MVC（Model View Controller 模型-视图-控制器）设计创建 Web 应用程序的模式:  Model（模型）表示应用程序核心（比如数据库记录列表）。 View（视图）显示数据（数据库记录）。 Controller（控制器）处理输入（写入数据库记录）。  MVC 模式同时提供了对 HTML、CSS 和 JavaScript 的完全控制。Mode">
+<meta property="og:description" content="Django rest framework中请求的生命周期 项目开展URlhttp://127.0.0.1:8002/v1/api/route/GET: 查询（列表）POST： 增加url(r’^(?P&amp;lt;version&amp;gt;\w+)/api/route/$’, views.RouteView.as_view()),url(r’^(?P&amp;lt;version&amp;gt;\w+)/api/rout">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://mapleshaw.cn/img/MTV1.png">
-<meta property="og:image" content="http://mapleshaw.cn/img/MTV2.png">
-<meta property="og:image" content="http://mapleshaw.cn/img/Django.png">
-<meta property="og:updated_time" content="2017-12-20T05:01:14.394Z">
+<meta property="og:image" content="http://mapleshaw.cn/img/drfsmzq.png">
+<meta property="og:image" content="http://mapleshaw.cn/img/ModelViewSet.png">
+<meta property="og:updated_time" content="2017-11-29T13:14:51.644Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Django总结">
-<meta name="twitter:description" content="描述下MVC架构MVC 是一种使用 MVC（Model View Controller 模型-视图-控制器）设计创建 Web 应用程序的模式:  Model（模型）表示应用程序核心（比如数据库记录列表）。 View（视图）显示数据（数据库记录）。 Controller（控制器）处理输入（写入数据库记录）。  MVC 模式同时提供了对 HTML、CSS 和 JavaScript 的完全控制。Mode">
-<meta name="twitter:image" content="http://mapleshaw.cn/img/MTV1.png">
+<meta name="twitter:title" content="Django rest framework总结">
+<meta name="twitter:description" content="Django rest framework中请求的生命周期 项目开展URlhttp://127.0.0.1:8002/v1/api/route/GET: 查询（列表）POST： 增加url(r’^(?P&amp;lt;version&amp;gt;\w+)/api/route/$’, views.RouteView.as_view()),url(r’^(?P&amp;lt;version&amp;gt;\w+)/api/rout">
+<meta name="twitter:image" content="http://mapleshaw.cn/img/drfsmzq.png">
 
 
 
@@ -130,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://mapleshaw.cn/django-summary.html"/>
+  <link rel="canonical" href="http://mapleshaw.cn/django-rest-framework.html"/>
 
 
 
 
 
-  <title>Django总结 | maple-shaw</title>
+  <title>Django rest framework总结 | maple-shaw</title>
   
 
 
@@ -253,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://mapleshaw.cn/django-summary.html">
+    <link itemprop="mainEntityOfPage" href="http://mapleshaw.cn/django-rest-framework.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maple Shaw">
@@ -270,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Django总结</h1>
+          <h1 class="post-title" itemprop="name headline">Django rest framework总结</h1>
         
 
         <div class="post-meta">
@@ -282,8 +281,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-15T10:31:09+08:00">
-                2017-11-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-23T19:36:09+08:00">
+                2017-11-23
               </time>
             
 
@@ -305,8 +304,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/面试汇总/" itemprop="url" rel="index">
-                    <span itemprop="name">面试汇总</span>
+                  <a href="/categories/Django/" itemprop="url" rel="index">
+                    <span itemprop="name">Django</span>
                   </a>
                 </span>
 
@@ -342,36 +341,25 @@
       
 
       
-        <h3 id="描述下MVC架构"><a href="#描述下MVC架构" class="headerlink" title="描述下MVC架构"></a>描述下MVC架构</h3><p>MVC 是一种使用 MVC（Model View Controller 模型-视图-控制器）设计创建 Web 应用程序的模式:</p>
-<ul>
-<li>Model（模型）表示应用程序核心（比如数据库记录列表）。</li>
-<li>View（视图）显示数据（数据库记录）。</li>
-<li>Controller（控制器）处理输入（写入数据库记录）。</li>
+        <h3 id="Django-rest-framework中请求的生命周期"><a href="#Django-rest-framework中请求的生命周期" class="headerlink" title="Django rest framework中请求的生命周期"></a>Django rest framework中请求的生命周期</h3><p><img src="../img/drfsmzq.png" alt="@生命周期|center|0"></p>
+<h3 id="项目开展"><a href="#项目开展" class="headerlink" title="项目开展"></a>项目开展</h3><h4 id="URl"><a href="#URl" class="headerlink" title="URl"></a>URl</h4><p><a href="http://127.0.0.1:8002/v1/api/route/" target="_blank" rel="external">http://127.0.0.1:8002/v1/api/route/</a><br>GET: 查询（列表）<br>POST： 增加<br>url(r’^(?P&lt;version&gt;\w+)/api/route/$’, views.RouteView.as_view()),<br>url(r’^(?P&lt;version&gt;\w+)/api/route.(?P&lt;format&gt;\w+)$’, views.RouteView.as_view()),</p>
+<p><a href="http://127.0.0.1:8002/route/1/" target="_blank" rel="external">http://127.0.0.1:8002/route/1/</a><br>GET: 查询（单条数据）<br>PUT： 更新<br>DELETE：删除<br>url(r’^(?P&lt;version&gt;\w+)/api/route/(?P<pk>\d+)/$’, views.RouteView.as_view()),<br>url(r’^(?P&lt;version&gt;\w+)/api/route/(?P<pk>\d+).(?P&lt;format&gt;\w+)$’, views.RouteView.as_view()),</pk></pk></p>
+<h4 id="视图："><a href="#视图：" class="headerlink" title="视图："></a>视图：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework.views <span class="keyword">import</span> APIView</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RouteView</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    <span class="comment"># The following policies may be set at either globally, or per-view.</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 渲染</span></span><br><span class="line">    renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES</span><br><span class="line">    <span class="comment"># 解析</span></span><br><span class="line">    parser_classes = api_settings.DEFAULT_PARSER_CLASSES</span><br><span class="line">    <span class="comment"># 认证相关的类s</span></span><br><span class="line">    authentication_classes = api_settings.DEFAULT_AUTHENTICATION_CLASSES</span><br><span class="line">    <span class="comment"># 限制访问频率</span></span><br><span class="line">    throttle_classes = api_settings.DEFAULT_THROTTLE_CLASSES</span><br><span class="line">    <span class="comment"># 权限相关</span></span><br><span class="line">    permission_classes = api_settings.DEFAULT_PERMISSION_CLASSES</span><br><span class="line">    <span class="comment"># 版本相关的类</span></span><br><span class="line">    versioning_class = api_settings.DEFAULT_VERSIONING_CLASS</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self,request,*args,**kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self,request,*args,**kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(self,request,*args,**kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(self,request,*args,**kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<h5 id="dispatch中的功能"><a href="#dispatch中的功能" class="headerlink" title="dispatch中的功能"></a>dispatch中的功能</h5><blockquote>
+<p>1.封装Request（request，解析相关[对象列表],认证相关[对象列表]，选择相关[对象]，解析内容）<br>2.initial(request, *args, **kwargs)<br>版本：version, scheme = self.determine_version(request, <em>args, *</em>kwargs)<br>认证：self.perform_authentication(request)<br>权限：self.check_permissions(request)<br>限制访问频率：self.check_throttles(request)</p>
+</blockquote>
+<h5 id="ModelViewSet继承关系"><a href="#ModelViewSet继承关系" class="headerlink" title="ModelViewSet继承关系"></a>ModelViewSet继承关系</h5><p><img src="../img/ModelViewSet.png" alt="ModelViewSet"></p>
+<h4 id="请求-响应"><a href="#请求-响应" class="headerlink" title="请求+响应"></a>请求+响应</h4><p>请求：解析器<br>parser_classes = [JSONParser, FormParser, MultiPartParser, ]<br>request.data 进行解析，拿到解析后的数据<br><strong>requset._request.COOKIES 客户端发送的COOKIES</strong><br>响应：渲染<br>renderer_classes = [CustomBrowsableAPIRenderer,JSONRenderer ]</p>
+<h4 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h4><ul>
+<li>请求数据验证<br>ser = UserSerialize(data=request.data)<br>ser.is_valid()</li>
+<li>响应数据的序列化（many=True）<br>user_list = models.UserInfo.objects.all()<br>ser = UserSerialize(instance=user_list,many=True,context={‘request’: request})<br><br>user = models.UserInfo.objects.all().first()<br>ser = UserSerialize(instance=user, many=False)<br>return Response(ser.data)</li>
 </ul>
-<p>MVC 模式同时提供了对 HTML、CSS 和 JavaScript 的完全控制。<br>Model（模型）是应用程序中用于处理应用程序数据逻辑的部分。<br>　　通常模型对象负责在数据库中存取数据。<br>View（视图）是应用程序中处理数据显示的部分。<br>　　通常视图是依据模型数据创建的。<br>Controller（控制器）是应用程序中处理用户交互的部分。<br>　　通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据。</p>
-<p>MVC 分层有助于管理复杂的应用程序，因为您可以在一个时间内专门关注一个方面。例如，您可以在不依赖业务逻辑的情况下专注于视图设计。同时也让应用程序的测试更加容易。<br>MVC 分层同时也简化了分组开发。不同的开发人员可同时开发视图、控制器逻辑和业务逻辑。</p>
-<h3 id="Django的MTV架构"><a href="#Django的MTV架构" class="headerlink" title="Django的MTV架构"></a>Django的MTV架构</h3><p>Django的MTV模式本质上和MVC是一样的，也是为了各组件间保持松耦合关系，只是定义上有些许不同，Django的MTV分别是值：</p>
-<ul>
-<li>M 代表模型（Model）：负责业务对象和数据库的关系映射(ORM)。</li>
-<li>T 代表模板 (Template)：负责如何把页面展示给用户(html)。</li>
-<li>V 代表视图（View）：负责业务逻辑，并在适当时候调用Model和Template。<br>除了以上三层之外，还需要一个URL分发器，它的作用是将一个个URL的页面请求分发给不同的View处理，View再调用相应的Model和Template，MTV的响应模式如下所示：</li>
+<h4 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h4><ul>
+<li>根据页码进行分页：<strong>PageNumberPagination</strong> &emsp;&emsp;page&emsp;&emsp;page_size</li>
+<li>根据位置和个数进行分页：<strong>LimitOffsetPagination</strong> &emsp;&emsp;offset&emsp;&emsp;limit</li>
+<li>根据游标分页：<strong>CursorPagination</strong> &emsp;&emsp;cursor&emsp;&emsp;page_size   只能上一页、下一页、性能高</li>
 </ul>
-<p><img src="../img/MTV1.png" alt=""><br><img src="../img/MTV2.png" alt=""></p>
-<h3 id="Django重定向的原理"><a href="#Django重定向的原理" class="headerlink" title="Django重定向的原理"></a>Django重定向的原理</h3><ol>
-<li>服务器接受请求，经过解析url匹配相应处理函数。</li>
-<li>通过return返回一个新请求路径给浏览器。</li>
-<li>浏览器拿到返回的数据后，再次发送请求。</li>
-<li>服务器经过url解析匹配后，匹配对应的处理函数并返回结果。</li>
-</ol>
-<h3 id="Django调用模板的过程"><a href="#Django调用模板的过程" class="headerlink" title="Django调用模板的过程"></a>Django调用模板的过程</h3><ol>
-<li>找到模板</li>
-<li>定义上下文</li>
-<li>渲染模板</li>
-</ol>
-<h3 id="Django中如何在model保存前做一定的固定操作，比如写一句日志"><a href="#Django中如何在model保存前做一定的固定操作，比如写一句日志" class="headerlink" title="Django中如何在model保存前做一定的固定操作，比如写一句日志"></a>Django中如何在model保存前做一定的固定操作，比如写一句日志</h3><p>Django中提供了信号，用于在框架执行操作时解耦。就是一些动作发生时，信号允许特定的发送者去提醒一些接受者。<br>使用pre_save信号，Django的model对象保存前，自动触发。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Model signals</span></span><br><span class="line"><span class="string">    pre_init                    # django的modal执行其构造方法前，自动触发</span></span><br><span class="line"><span class="string">    post_init                   # django的modal执行其构造方法后，自动触发</span></span><br><span class="line"><span class="string">    pre_save                    # django的modal对象保存前，自动触发</span></span><br><span class="line"><span class="string">    post_save                   # django的modal对象保存后，自动触发</span></span><br><span class="line"><span class="string">    pre_delete                  # django的modal对象删除前，自动触发</span></span><br><span class="line"><span class="string">    post_delete                 # django的modal对象删除后，自动触发</span></span><br><span class="line"><span class="string">    m2m_changed                 # django的modal中使用m2m字段操作第三张表（add,remove,clear）前后，自动触发</span></span><br><span class="line"><span class="string">    class_prepared              # 程序启动时，检测已注册的app中modal类，对于每一个类，自动触发</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">Management signals</span></span><br><span class="line"><span class="string">    pre_migrate                 # 执行migrate命令前，自动触发</span></span><br><span class="line"><span class="string">    post_migrate                # 执行migrate命令后，自动触发</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">Request/response signals</span></span><br><span class="line"><span class="string">    request_started             # 请求到来前，自动触发</span></span><br><span class="line"><span class="string">    request_finished            # 请求结束后，自动触发</span></span><br><span class="line"><span class="string">    got_request_exception       # 请求异常后，自动触发</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">Test signals</span></span><br><span class="line"><span class="string">    setting_changed             # 使用test测试修改配置文件时，自动触发</span></span><br><span class="line"><span class="string">    template_rendered           # 使用test测试渲染模板时，自动触发</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">Database Wrappers</span></span><br><span class="line"><span class="string">    connection_created          # 创建数据库连接时，自动触发</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
-<p><a href="http://www.cnblogs.com/maple-shaw/p/7563029.html#_label3" target="_blank" rel="external">更多内置信号</a></p>
-<h3 id="Django思维导图"><a href="#Django思维导图" class="headerlink" title="Django思维导图"></a>Django思维导图</h3><p><img src="../img/Django.png" alt=""></p>
+<h3 id="详情博客"><a href="#详情博客" class="headerlink" title="详情博客"></a>详情博客</h3><p><a href="http://www.cnblogs.com/maple-shaw/p/7865767.html" target="_blank" rel="external">http://www.cnblogs.com/maple-shaw/p/7865767.html</a></p>
 
       
     </div>
@@ -396,8 +384,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/database.html" rel="next" title="数据库总结">
-                <i class="fa fa-chevron-left"></i> 数据库总结
+              <a href="/django-rest-source-analysis.html" rel="next" title="Django Rest Framework的请求周期及CBV中的dispatch">
+                <i class="fa fa-chevron-left"></i> Django Rest Framework的请求周期及CBV中的dispatch
               </a>
             
           </div>
@@ -406,8 +394,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/web-about.html" rel="prev" title="Web相关总结">
-                Web相关总结 <i class="fa fa-chevron-right"></i>
+              <a href="/CMDB_summary.html" rel="prev" title="CMDB项目总结">
+                CMDB项目总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -545,7 +533,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#描述下MVC架构"><span class="nav-number">1.</span> <span class="nav-text">描述下MVC架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django的MTV架构"><span class="nav-number">2.</span> <span class="nav-text">Django的MTV架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django重定向的原理"><span class="nav-number">3.</span> <span class="nav-text">Django重定向的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django调用模板的过程"><span class="nav-number">4.</span> <span class="nav-text">Django调用模板的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django中如何在model保存前做一定的固定操作，比如写一句日志"><span class="nav-number">5.</span> <span class="nav-text">Django中如何在model保存前做一定的固定操作，比如写一句日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django思维导图"><span class="nav-number">6.</span> <span class="nav-text">Django思维导图</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Django-rest-framework中请求的生命周期"><span class="nav-number">1.</span> <span class="nav-text">Django rest framework中请求的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目开展"><span class="nav-number">2.</span> <span class="nav-text">项目开展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URl"><span class="nav-number">2.1.</span> <span class="nav-text">URl</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图："><span class="nav-number">2.2.</span> <span class="nav-text">视图：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#dispatch中的功能"><span class="nav-number">2.2.1.</span> <span class="nav-text">dispatch中的功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ModelViewSet继承关系"><span class="nav-number">2.2.2.</span> <span class="nav-text">ModelViewSet继承关系</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求-响应"><span class="nav-number">2.3.</span> <span class="nav-text">请求+响应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#序列化"><span class="nav-number">2.4.</span> <span class="nav-text">序列化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分页"><span class="nav-number">2.5.</span> <span class="nav-text">分页</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#详情博客"><span class="nav-number">3.</span> <span class="nav-text">详情博客</span></a></li></ol></div>
             
 
           </div>
