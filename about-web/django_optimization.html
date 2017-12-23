@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-simple.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="性能优化其实就是测量。我们在一个项目中测量以下几个方面：  执行时间 代码的行数 函数调用次数 分配的内存 其他  一般来说，两个指标比较重要：执行时间，需要的内存。 在Web项目中，响应时间（服务器接收由某个用户的操作产生的请求，处理该请求并返回结果所需的总的时间）通常是最重要的指标，因为过长的响应时间会让用户厌倦等待，并切换到浏览器中的另一个选项卡页面。 在编程中，分析项目的性能被称为prof">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django性能优化">
+<meta property="og:url" content="http://mapleshaw.cn/about-web/django_optimization.html">
+<meta property="og:site_name" content="maple-shaw">
+<meta property="og:description" content="性能优化其实就是测量。我们在一个项目中测量以下几个方面：  执行时间 代码的行数 函数调用次数 分配的内存 其他  一般来说，两个指标比较重要：执行时间，需要的内存。 在Web项目中，响应时间（服务器接收由某个用户的操作产生的请求，处理该请求并返回结果所需的总的时间）通常是最重要的指标，因为过长的响应时间会让用户厌倦等待，并切换到浏览器中的另一个选项卡页面。 在编程中，分析项目的性能被称为prof">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://mapleshaw.cn/img/django_optimization/1.png">
+<meta property="og:image" content="http://mapleshaw.cn/img/django_optimization/2.png">
+<meta property="og:updated_time" content="2017-12-23T04:25:55.809Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django性能优化">
+<meta name="twitter:description" content="性能优化其实就是测量。我们在一个项目中测量以下几个方面：  执行时间 代码的行数 函数调用次数 分配的内存 其他  一般来说，两个指标比较重要：执行时间，需要的内存。 在Web项目中，响应时间（服务器接收由某个用户的操作产生的请求，处理该请求并返回结果所需的总的时间）通常是最重要的指标，因为过长的响应时间会让用户厌倦等待，并切换到浏览器中的另一个选项卡页面。 在编程中，分析项目的性能被称为prof">
+<meta name="twitter:image" content="http://mapleshaw.cn/img/django_optimization/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"right","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://mapleshaw.cn/about-web/django_optimization.html"/>
+
+
+
+
+
+  <title>Django性能优化 | maple-shaw</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">maple-shaw</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">�������飬���Լ��������£����Լ��������£�</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://mapleshaw.cn/about-web/django_optimization.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Maple Shaw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="maple-shaw">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Django性能优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-23T09:58:09+08:00">
+                2017-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>性能优化其实就是测量。我们在一个项目中测量以下几个方面：</p>
+<ul>
+<li>执行时间</li>
+<li>代码的行数</li>
+<li>函数调用次数</li>
+<li>分配的内存</li>
+<li>其他</li>
+</ul>
+<p>一般来说，两个指标比较重要：执行时间，需要的内存。</p>
+<p>在Web项目中，响应时间（服务器接收由某个用户的操作产生的请求，处理该请求并返回结果所需的总的时间）通常是最重要的指标，因为过长的响应时间会让用户厌倦等待，并切换到浏览器中的另一个选项卡页面。</p>
+<p>在编程中，分析项目的性能被称为<a href="https://en.wikipedia.org/wiki/Profiling_%28computer_programming%29" target="_blank" rel="external">profiling</a>。为了分析API的性能，我们将使用<a href="https://github.com/jazzband/silk" target="_blank" rel="external">Silk</a>包。在安装完这个包，并调用/api/v1/houses/?country=5T22RI后，可以得到如下的结果：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">200</span> GET </span><br><span class="line">/api/v1/houses/</span><br><span class="line"></span><br><span class="line"><span class="number">77292</span>ms overall</span><br><span class="line"><span class="number">15854</span>ms on queries</span><br><span class="line"><span class="number">50004</span> queries</span><br></pre></td></tr></table></figure></p>
+<h3 id="优化数据库的查询"><a href="#优化数据库的查询" class="headerlink" title="优化数据库的查询"></a>优化数据库的查询</h3><p>性能优化最常见的技巧之一是对数据库查询进行优化，同时，还可以对查询做多次优化来减小响应时间。</p>
+<h4 id="1-一次性提供所有数据"><a href="#1-一次性提供所有数据" class="headerlink" title="1. 一次性提供所有数据"></a>1. 一次性提供所有数据</h4><p>Django中的查询是惰性的。这意味着在你真正需要获取数据之前它不会访问数据库。同时，它只获取你指定的数据，如果需要其他附加数据，则要另外发出请求。<br>这时候可以在查询集上使用两个方法：</p>
+<ol>
+<li><a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#select-related" target="_blank" rel="external">select_related()</a>，他将返回和外键有关的QuerySet，在执行查询时选择其他相关的数据。<br>这是一个性能提升，导致一个复杂的查询，但是意味着稍后使用外键关系不会要求数据库查询。select_related通过创建SQL连接并在SELECT语句中包含相关对象的字段来工作。select_related仅限于单值关系 - 外键和一对一。</li>
+<li><a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#prefetch-related" target="_blank" rel="external">prefetch_related()</a>。prefetch_related为每个关系进行单独的查找，并在Python中进行“连接”。这使得它可以预取多对多和多对一的对象，也支持GenericRelation和GenericForeignKey的预取，但是它必须被限制在一组同样的结果中。</li>
+</ol>
+<p>使用了select_related()后：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">200</span> GET</span><br><span class="line">/api/v1/houses/</span><br><span class="line"></span><br><span class="line"><span class="number">35979</span>ms overall</span><br><span class="line"><span class="number">102</span>ms on queries</span><br><span class="line"><span class="number">4</span> queries</span><br></pre></td></tr></table></figure></p>
+<p>总体响应时间降至36秒，在数据库中花费的时间约为100ms，只有4个查询！</p>
+<h4 id="2-仅提取相关的数据"><a href="#2-仅提取相关的数据" class="headerlink" title="2. 仅提取相关的数据"></a>2. 仅提取相关的数据</h4><p>默认情况下，Django会从数据库中提取所有字段。但是，当表有很多列很多行的时候，告诉Django提取哪些特定的字段就非常有意义了，这样就不会花时间去获取根本用不到的信息。<br>Django可以使用<a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#defer" target="_blank" rel="external">defer()</a>和<a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#only" target="_blank" rel="external">only()</a>这两个查询方法来实现这一点。第一个用于指定哪些字段不要加载，第二个用于指定只加载哪些字段。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Person.objects.defer(<span class="string">"age"</span>, <span class="string">"biography"</span>)   <span class="comment"># 取age，biography之外的字段信息</span></span><br><span class="line">Person.objects.only(<span class="string">"name"</span>)                <span class="comment"># 只取name字段的信息</span></span><br></pre></td></tr></table></figure>
+<p>使用only()后：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">200</span> GET</span><br><span class="line">/api/v1/houses/</span><br><span class="line"></span><br><span class="line"><span class="number">33111</span>ms overall</span><br><span class="line"><span class="number">52</span>ms on queries</span><br><span class="line"><span class="number">4</span> queries</span><br></pre></td></tr></table></figure></p>
+<p>减少了一半的查询时间，总体时间也略有下降，还有提升的空间。</p>
+<h4 id="3-其他"><a href="#3-其他" class="headerlink" title="3. 其他"></a>3. 其他</h4><ul>
+<li>使用 filter and exclude 过滤不需要的记录，这两个是最常用语句，相当是SQL的where</li>
+<li>同一实体里使用F()表达式过滤其他字段</li>
+<li>使用annotate对数据库做聚合运算，不要用python语言对以上类型数据过滤筛选，同样的结果，python处理复杂度要高，而且效率不高， 白白浪费内存</li>
+<li>使用QuerySet.extra() extra虽然扩展性不太好，但功能很强大，如果实体里需要需要增加额外属性，不得已时，通过extra来实现，也是个好办法</li>
+</ul>
+<h3 id="代码优化"><a href="#代码优化" class="headerlink" title="代码优化"></a>代码优化</h3><p>你不能无限制地优化数据库查询，并且上面的结果也证明了这一点。即使把查询时间减少到0，我们仍然会面对需要等待半分钟才能得到应答这个现实。现在是时候转移到另一个优化级别上来了，那就是：<em>业务逻辑</em>。</p>
+<h4 id="1-简化代码"><a href="#1-简化代码" class="headerlink" title="1. 简化代码"></a>1. 简化代码</h4><p>有时，第三方软件包对于简单的任务来说有着太大的开销。可以自定义完成简单的任务，不使用框架写好的方法。</p>
+<h4 id="2-更新或替代第三方软件包"><a href="#2-更新或替代第三方软件包" class="headerlink" title="2. 更新或替代第三方软件包"></a>2. 更新或替代第三方软件包</h4><p>想要再减少时间，就需要分析代码了。<br>你可以自己使用Python内置的分析器来进行分析，也可以使用一些第三方软件包。由于我们已经使用了silk，它可以分析代码并生成一个二进制的分析文件，因此，我们可以做进一步的可视化分析。有好几个可视化软件包可以将二进制文件转换为一些友好的可视化视图。本文将使用<a href="https://github.com/jiffyclub/snakeviz" target="_blank" rel="external">snakeviz</a>。<br>这是上文一个请求的二进制分析文件的可视化图表:<br><img src="../../img/django_optimization/1.png" alt="二进制分析文件的可视化图表"></p>
+<p>从上到下是调用堆栈，显示了文件名、函数名及其行号，以及该方法花费的时间。可以很容易地看出，时间大部分都用在计算散列上（紫罗兰色的<strong>init</strong>.py和primes.py矩形）。<br>目前，这是代码的主要性能瓶颈，但同时，这不是我们自己写的代码，而是用的第三方包。<br>在这种情况下，我们可以做的事情将非常有限：</p>
+<ul>
+<li>检查包的最新版本（希望能有更好的性能）。</li>
+<li>寻找另一个能够满足我们需求的软件包。</li>
+<li>我们自己写代码，并且性能优于目前使用的软件包。</li>
+</ul>
+<p>幸运的是，我们找到了一个更新版本的basehash包。原代码使用的是v.2.1.0，而新的是v.3.0.4。<br>更新之后：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">200</span> GET</span><br><span class="line">/api/v1/houses/</span><br><span class="line"></span><br><span class="line"><span class="number">7738</span>ms overall</span><br><span class="line"><span class="number">59</span>ms on queries</span><br><span class="line"><span class="number">4</span> queries</span><br></pre></td></tr></table></figure></p>
+<p>响应时间从17秒缩短到了8秒以内。太棒了！但还有一件事我们应该来看看。</p>
+<h4 id="3-重构代码"><a href="#3-重构代码" class="headerlink" title="3. 重构代码"></a>3. 重构代码</h4><p>到目前为止，我们已经改进了查询、用自己特定的函数取代了第三方复杂而又泛型的代码、更新了第三方包，但是我们还是保留了原有的代码。但有时，对现有代码进行小规模的重构可能会带来意想不到的结果。但是，为此我们需要再次分析运行结果。<br><img src="../../img/django_optimization/2.png" alt="二进制分析文件的可视化图表"><br>仔细看一下，你可以看到<a href="https://baike.baidu.com/item/Hash/390310" target="_blank" rel="external">散列</a>仍然是一个问题（毫不奇怪，这是我们对数据做的唯一的事情），虽然我们确实朝这个方向改进了，但这个绿色的矩形表示<strong>init</strong>.py花了2.14秒的时间，同时伴随着灰色的<strong>init</strong>.py:54(hash)。这意味着初始化工作需要很长的时间。<br>我们来看看basehash包的源代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># basehash/__init__.py</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialization of `base36` class initializes the parent, `base` class.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base36</span><span class="params">(base)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, length=HASH_LENGTH, generator=GENERATOR)</span>:</span></span><br><span class="line">        super(base36, self).__init__(BASE36, length, generator)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, alphabet, length=HASH_LENGTH, generator=GENERATOR)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> len(set(alphabet)) != len(alphabet):</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'Supplied alphabet cannot contain duplicates.'</span>)</span><br><span class="line"></span><br><span class="line">        self.alphabet = tuple(alphabet)</span><br><span class="line">        self.base = len(alphabet)</span><br><span class="line">        self.length = length</span><br><span class="line">        self.generator = generator</span><br><span class="line">        self.maximum = self.base ** self.length - <span class="number">1</span></span><br><span class="line">        self.prime = next_prime(int((self.maximum + <span class="number">1</span>) * self.generator))  <span class="comment"># `next_prime` call on each initialized instance</span></span><br></pre></td></tr></table></figure></p>
+<p>正如你所看到的，一个base实例的初始化需要调用next_prime函数，这是太重了，我们可以在上面的可视化图表中看到左下角的矩形。</p>
+<p>我们再来看看Hash类：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hasher</span><span class="params">(object)</span>:</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_model</span><span class="params">(cls, obj, klass=None)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> obj.pk <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">        <span class="keyword">return</span> cls.make_hash(obj.pk, klass <span class="keyword">if</span> klass <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">else</span> obj)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">make_hash</span><span class="params">(cls, object_pk, klass)</span>:</span></span><br><span class="line">        base36 = basehash.base36()  <span class="comment"># &lt;-- initializing on each method call</span></span><br><span class="line">        content_type = ContentType.objects.get_for_model(klass, for_concrete_model=<span class="keyword">False</span>)</span><br><span class="line">        <span class="keyword">return</span> base36.hash(<span class="string">'%(contenttype_pk)03d%(object_pk)06d'</span> % &#123;</span><br><span class="line">            <span class="string">'contenttype_pk'</span>: content_type.pk,</span><br><span class="line">            <span class="string">'object_pk'</span>: object_pk</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_hash</span><span class="params">(cls, obj_hash)</span>:</span></span><br><span class="line">        base36 = basehash.base36()  <span class="comment"># &lt;-- initializing on each method call</span></span><br><span class="line">        unhashed = <span class="string">'%09d'</span> % base36.unhash(obj_hash)</span><br><span class="line">        contenttype_pk = int(unhashed[:<span class="number">-6</span>])</span><br><span class="line">        object_pk = int(unhashed[<span class="number">-6</span>:])</span><br><span class="line">        <span class="keyword">return</span> contenttype_pk, object_pk</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">to_object_pk</span><span class="params">(cls, obj_hash)</span>:</span>    </span><br><span class="line">        <span class="keyword">return</span> cls.parse_hash(obj_hash)[<span class="number">1</span>]</span><br></pre></td></tr></table></figure></p>
+<p>正如你所看到的，我已经标记了这两个方法初始化base36实例的方法，这并不是真正需要的。<br>由于散列是一个确定性的过程，这意味着对于一个给定的输入值，它必须始终生成相同的散列值，因此，我们可以把它作为类的一个属性。让我们来看看它将如何执行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hasher</span><span class="params">(object)</span>:</span></span><br><span class="line">    base36 = basehash.base36()  <span class="comment"># &lt;-- initialize hasher only once</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_model</span><span class="params">(cls, obj, klass=None)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> obj.pk <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">        <span class="keyword">return</span> cls.make_hash(obj.pk, klass <span class="keyword">if</span> klass <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">else</span> obj)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">make_hash</span><span class="params">(cls, object_pk, klass)</span>:</span></span><br><span class="line">        content_type = ContentType.objects.get_for_model(klass, for_concrete_model=<span class="keyword">False</span>)</span><br><span class="line">        <span class="keyword">return</span> cls.base36.hash(<span class="string">'%(contenttype_pk)03d%(object_pk)06d'</span> % &#123;</span><br><span class="line">            <span class="string">'contenttype_pk'</span>: content_type.pk,</span><br><span class="line">            <span class="string">'object_pk'</span>: object_pk</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_hash</span><span class="params">(cls, obj_hash)</span>:</span></span><br><span class="line">        unhashed = <span class="string">'%09d'</span> % cls.base36.unhash(obj_hash)</span><br><span class="line">        contenttype_pk = int(unhashed[:<span class="number">-6</span>])</span><br><span class="line">        object_pk = int(unhashed[<span class="number">-6</span>:])</span><br><span class="line">        <span class="keyword">return</span> contenttype_pk, object_pk</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">to_object_pk</span><span class="params">(cls, obj_hash)</span>:</span>    </span><br><span class="line">        <span class="keyword">return</span> cls.parse_hash(obj_hash)[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<p>再看结果：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">**<span class="number">200</span> GET**</span><br><span class="line"></span><br><span class="line">  /api/v1/houses/</span><br><span class="line"></span><br><span class="line"><span class="number">3766</span>ms overall</span><br><span class="line"><span class="number">38</span>ms on queries</span><br><span class="line"><span class="number">4</span> queries</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用缓存"><a href="#使用缓存" class="headerlink" title="使用缓存"></a>使用缓存</h3><p>在python开发中，如果使用django进行编写，为了提升效率，常常需要优化缓存。<br><a href="https://docs.djangoproject.com/en/1.11/topics/cache/" target="_blank" rel="external">官方文档</a></p>
+<p>settings.py中CACHES配置格式如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此为开始调试用，实际内部不做任何操作</span></span><br><span class="line"><span class="comment"># 配置：</span></span><br><span class="line">    CACHES = &#123;</span><br><span class="line">        <span class="string">'default'</span>: &#123;</span><br><span class="line">            <span class="string">'BACKEND'</span>: <span class="string">'django.core.cache.backends.dummy.DummyCache'</span>,     <span class="comment"># 引擎</span></span><br><span class="line">            <span class="string">'TIMEOUT'</span>: <span class="number">300</span>,                                               <span class="comment"># 缓存超时时间（默认300，None表示永不过期，0表示立即过期）</span></span><br><span class="line">            <span class="string">'OPTIONS'</span>:&#123;</span><br><span class="line">                <span class="string">'MAX_ENTRIES'</span>: <span class="number">300</span>,                                       <span class="comment"># 最大缓存个数（默认300）</span></span><br><span class="line">                <span class="string">'CULL_FREQUENCY'</span>: <span class="number">3</span>,                                      <span class="comment"># 缓存到达最大个数之后，剔除缓存个数的比例，即：1/CULL_FREQUENCY（默认3）</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">'KEY_PREFIX'</span>: <span class="string">''</span>,                                             <span class="comment"># 缓存key的前缀（默认空）</span></span><br><span class="line">            <span class="string">'VERSION'</span>: <span class="number">1</span>,                                                 <span class="comment"># 缓存key的版本（默认1）</span></span><br><span class="line">            <span class="string">'KEY_FUNCTION'</span> 函数名                                          <span class="comment"># 生成key的函数（默认函数会生成为：【前缀:版本:key】）</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>Django中提供了6种缓存方式：</p>
+<ul>
+<li>开发调试</li>
+<li>内存</li>
+<li>文件</li>
+<li>数据库</li>
+<li>Memcache缓存（python-memcached模块）</li>
+<li>Memcache缓存（pylibmc模块）</li>
+</ul>
+<p>缓存的3中应用：<br>1、全站应用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用中间件，经过一系列的认证等操作，如果内容在缓存中存在，则使用FetchFromCacheMiddleware获取内容并返回给用户，当返回给用户之前，判断缓存中是否已经存在，如果不存在则UpdateCacheMiddleware会将缓存保存至缓存，从而实现全站缓存</span></span><br><span class="line"></span><br><span class="line">MIDDLEWARE = [</span><br><span class="line">    <span class="string">'django.middleware.cache.UpdateCacheMiddleware'</span>,</span><br><span class="line">    <span class="comment"># 其他中间件...</span></span><br><span class="line">    <span class="string">'django.middleware.cache.FetchFromCacheMiddleware'</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">CACHE_MIDDLEWARE_ALIAS = <span class="string">""</span>  <span class="comment">#用于存储的高速缓存别名。</span></span><br><span class="line">CACHE_MIDDLEWARE_SECONDS = <span class="string">""</span>  <span class="comment">#每页应该被缓存的秒数。</span></span><br><span class="line">CACHE_MIDDLEWARE_KEY_PREFIX = <span class="string">""</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="https://docs.djangoproject.com/en/1.11/topics/cache/#the-per-site-cache" target="_blank" rel="external">查看详情</a></p>
+<p>2、单独视图缓存<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#方式一：</span></span><br><span class="line"><span class="keyword">from</span> django.views.decorators.cache <span class="keyword">import</span> cache_page</span><br><span class="line"></span><br><span class="line"><span class="meta">@cache_page(60 * 15)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_view</span><span class="params">(request)</span>:</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"><span class="comment">#方式二：</span></span><br><span class="line"><span class="keyword">from</span> django.views.decorators.cache <span class="keyword">import</span> cache_page</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^foo/([0-9]&#123;1,2&#125;)/$'</span>, cache_page(<span class="number">60</span> * <span class="number">15</span>)(my_view)),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://docs.djangoproject.com/en/1.11/topics/cache/#the-per-view-cache" target="_blank" rel="external">查看更多</a><br>3、模板片段缓存(局部视图)<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;% load cache %&#125;</span><br><span class="line">&#123;% cache 500 sidebar %&#125;</span><br><span class="line">    .. sidebar ..</span><br><span class="line">&#123;% endcache %&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://docs.djangoproject.com/en/1.11/topics/cache/#template-fragment-caching" target="_blank" rel="external">查看更多</a></p>
+<h3 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h3><p>原文：<a href="https://www.toptal.com/python/performance-optimization-testing-django" target="_blank" rel="external"> A Guide to Performance Testing and Optimization With Python and Django</a><br>作者：IULIAN GULEA<br>翻译：雁惊寒<br><a href="http://www.cnblogs.com/maple-shaw/p/7581316.html" target="_blank" rel="external">个人cnblogs</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/multi_table_query.html" rel="next" title="数据库多表查询">
+                <i class="fa fa-chevron-left"></i> 数据库多表查询
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="Maple Shaw" />
+            
+              <p class="site-author-name" itemprop="name">Maple Shaw</p>
+              <p class="site-description motion-element" itemprop="description">Never mind the past, never fear the future.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/maple-shaw" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/maple-shaw/" target="_blank" title="Cnblog">
+                    
+                      <i class="fa fa-fw fa-globe"></i>Cnblog</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#优化数据库的查询"><span class="nav-number">1.</span> <span class="nav-text">优化数据库的查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-一次性提供所有数据"><span class="nav-number">1.1.</span> <span class="nav-text">1. 一次性提供所有数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-仅提取相关的数据"><span class="nav-number">1.2.</span> <span class="nav-text">2. 仅提取相关的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-其他"><span class="nav-number">1.3.</span> <span class="nav-text">3. 其他</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码优化"><span class="nav-number">2.</span> <span class="nav-text">代码优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-简化代码"><span class="nav-number">2.1.</span> <span class="nav-text">1. 简化代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-更新或替代第三方软件包"><span class="nav-number">2.2.</span> <span class="nav-text">2. 更新或替代第三方软件包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-重构代码"><span class="nav-number">2.3.</span> <span class="nav-text">3. 重构代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用缓存"><span class="nav-number">3.</span> <span class="nav-text">使用缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考博客"><span class="nav-number">4.</span> <span class="nav-text">参考博客</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Maple Shaw</span>
+  <span id="busuanzi_container_site_pv" style="display: inline;">
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+	本站访客数 <span id="busuanzi_value_site_uv"></span>人次
+  </span>
+  
+</div>
+
+
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
