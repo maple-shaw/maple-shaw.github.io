@@ -377,7 +377,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://mapleshaw.cn/about-web/customize_session.html">
+    <link itemprop="mainEntityOfPage" href="http://mapleshaw.cn/about-web/distributed_session.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maple Shaw">
@@ -396,7 +396,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/about-web/customize_session.html" itemprop="url">自定义session和分布式session</a></h1>
+                <a class="post-title-link" href="/about-web/distributed_session.html" itemprop="url">分布式session</a></h1>
         
 
         <div class="post-meta">
@@ -448,15 +448,12 @@
       
         
           
-          自定义session定义一个Session类，其实例化时接收handler对象 
-
-在Session类中定义一个静态字段（大字典），用来存储session_id和对应的用户信息；所有的session对象都可以访问这个大字典。
-在Session的构造方法中，获取和设置cookie： 
-调用handle
+          自定义session点击查看自定义session
+一致性哈希和分布式session将session保存在redis缓存中，可以获得更高的性能。如果有多台缓存服务器，就需要对服务器作负载均衡，将session分发到每台服务器上。实现负载均衡的算法有很多，最常用的是哈希算法，它的基本逻辑是，对sessi
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/about-web/customize_session.html#more" rel="contents">
+            <a class="btn" href="/about-web/distributed_session.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
