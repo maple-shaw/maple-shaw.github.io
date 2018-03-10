@@ -86,19 +86,19 @@
 
 
 
-<meta name="description" content="更多详情">
+<meta name="description" content="txn记录了不同店铺每天每个商品的销售记录。请用SQL把最近100天，至少有20天销售记录的商品ID找出来，并按销售天数倒序排序。表结构如下：  table {     width: 67%; }      字段 类型 注释     item_id integer 商品ID   sale_date datetime 销售日期   store_id varchar(20) 门店ID   quanti">
 <meta property="og:type" content="article">
-<meta property="og:title" content="瞬时响应之高性能架构">
-<meta property="og:url" content="http://mapleshaw.cn/about-web/high-performance architecture.html">
+<meta property="og:title" content="一个SQL笔试题">
+<meta property="og:url" content="http://mapleshaw.cn/datebase/Sales_records.html">
 <meta property="og:site_name" content="maple-shaw">
-<meta property="og:description" content="更多详情">
+<meta property="og:description" content="txn记录了不同店铺每天每个商品的销售记录。请用SQL把最近100天，至少有20天销售记录的商品ID找出来，并按销售天数倒序排序。表结构如下：  table {     width: 67%; }      字段 类型 注释     item_id integer 商品ID   sale_date datetime 销售日期   store_id varchar(20) 门店ID   quanti">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://mapleshaw.cn/img/Architecture/high-performance%20architecture.png">
-<meta property="og:updated_time" content="2017-12-23T10:35:25.390Z">
+<meta property="og:image" content="http://mapleshaw.cn/img/database/sale_day.png">
+<meta property="og:updated_time" content="2018-03-10T10:02:40.783Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="瞬时响应之高性能架构">
-<meta name="twitter:description" content="更多详情">
-<meta name="twitter:image" content="http://mapleshaw.cn/img/Architecture/high-performance%20architecture.png">
+<meta name="twitter:title" content="一个SQL笔试题">
+<meta name="twitter:description" content="txn记录了不同店铺每天每个商品的销售记录。请用SQL把最近100天，至少有20天销售记录的商品ID找出来，并按销售天数倒序排序。表结构如下：  table {     width: 67%; }      字段 类型 注释     item_id integer 商品ID   sale_date datetime 销售日期   store_id varchar(20) 门店ID   quanti">
+<meta name="twitter:image" content="http://mapleshaw.cn/img/database/sale_day.png">
 
 
 
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://mapleshaw.cn/about-web/high-performance architecture.html"/>
+  <link rel="canonical" href="http://mapleshaw.cn/datebase/Sales_records.html"/>
 
 
 
 
 
-  <title>瞬时响应之高性能架构 | maple-shaw</title>
+  <title>一个SQL笔试题 | maple-shaw</title>
   
 
 
@@ -251,7 +251,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://mapleshaw.cn/about-web/high-performance architecture.html">
+    <link itemprop="mainEntityOfPage" href="http://mapleshaw.cn/datebase/Sales_records.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Maple Shaw">
@@ -268,7 +268,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">瞬时响应之高性能架构</h1>
+          <h1 class="post-title" itemprop="name headline">一个SQL笔试题</h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-23T18:31:09+08:00">
-                2017-12-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T17:24:09+08:00">
+                2018-03-10
               </time>
             
 
@@ -318,8 +318,50 @@
       
 
       
-        <p><img src="../../img/Architecture/high-performance architecture.png" alt=""></p>
-<p><a href="https://www.cnblogs.com/edisonchou/p/3773828.html" target="_blank" rel="external">更多详情</a></p>
+        <p>txn记录了不同店铺每天每个商品的销售记录。<strong>请用SQL把最近100天，至少有20天销售记录的商品ID找出来，并按销售天数倒序排序。</strong><br>表结构如下：</p>
+<style>
+table {
+    width: 67%;
+}
+</style>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字段</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">注释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">item_id</td>
+<td style="text-align:center">integer</td>
+<td style="text-align:center">商品ID</td>
+</tr>
+<tr>
+<td style="text-align:center">sale_date</td>
+<td style="text-align:center">datetime</td>
+<td style="text-align:center">销售日期</td>
+</tr>
+<tr>
+<td style="text-align:center">store_id</td>
+<td style="text-align:center">varchar(20)</td>
+<td style="text-align:center">门店ID</td>
+</tr>
+<tr>
+<td style="text-align:center">quantity</td>
+<td style="text-align:center">real</td>
+<td style="text-align:center">商品销售数量</td>
+</tr>
+</tbody>
+</table>
+<p>创建表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> txn (</span><br><span class="line">  item_id   <span class="built_in">INTEGER</span>,</span><br><span class="line">  sale_date DATETIME,</span><br><span class="line">  store_id  <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  quantity  <span class="built_in">REAL</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>添加数据<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> txn <span class="keyword">VALUES</span></span><br><span class="line">  (<span class="number">1</span>, <span class="string">'2018-03-03'</span>, <span class="string">'1'</span>, <span class="number">200</span>),</span><br><span class="line">  (<span class="number">1</span>, <span class="string">'2018-03-04'</span>, <span class="string">'2'</span>, <span class="number">200</span>),</span><br><span class="line">  (<span class="number">1</span>, <span class="string">'2018-03-05'</span>, <span class="string">'3'</span>, <span class="number">200</span>),</span><br><span class="line">  (<span class="number">1</span>, <span class="string">'2018-03-06'</span>, <span class="string">'4'</span>, <span class="number">200</span>),</span><br><span class="line">  (<span class="number">1</span>, <span class="string">'2018-03-07'</span>, <span class="string">'5'</span>, <span class="number">200</span>),</span><br><span class="line">  (<span class="number">2</span>, <span class="string">'2017-11-30'</span>, <span class="string">'1'</span>, <span class="number">200</span>),</span><br><span class="line">  (<span class="number">2</span>, <span class="string">'2017-12-01'</span>, <span class="string">'2'</span>, <span class="number">200</span>),</span><br><span class="line">  (<span class="number">2</span>, <span class="string">'2017-12-02'</span>, <span class="string">'3'</span>, <span class="number">200</span>),</span><br><span class="line">  (<span class="number">2</span>, <span class="string">'2018-03-03'</span>, <span class="string">'4'</span>, <span class="number">200</span>),</span><br><span class="line">  (<span class="number">2</span>, <span class="string">'2018-03-04'</span>, <span class="string">'5'</span>, <span class="number">200</span>),</span><br><span class="line">  (<span class="number">2</span>, <span class="string">'2018-03-05'</span>, <span class="string">'6'</span>, <span class="number">200</span>),</span><br><span class="line">  (<span class="number">2</span>, <span class="string">'2018-03-06'</span>, <span class="string">'7'</span>, <span class="number">200</span>);</span><br></pre></td></tr></table></figure></p>
+<p>20天数据过多，就用5天代替<br>datediff(now(), sale_date)返回当前日期和销售日期相差的天数<br>datediff(‘2018-03-10’,’2017-11-30’)函数计算两个日期差多少天，now()表示当前的datetime<br>datediff() 第一个日期比第二个日期大，值为正，反之为负。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT now(); # 2018-03-10 17:34:58</span><br><span class="line">SELECT datediff('2018-03-10','2017-11-30'); # 100</span><br></pre></td></tr></table></figure>
+<p>答案：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">  item_id,</span><br><span class="line">  <span class="keyword">count</span>(<span class="keyword">DISTINCT</span> (sale_date)) <span class="keyword">AS</span> sale_day</span><br><span class="line"><span class="keyword">FROM</span> txn</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">datediff</span>(<span class="keyword">now</span>(), sale_date) &lt;= <span class="number">100</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> item_id</span><br><span class="line"><span class="keyword">HAVING</span> sale_day &gt;= <span class="number">5</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> sale_day <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure></p>
+<p><img src="../../img/database/sale_day.png" alt="答案"></p>
 
       
     </div>
@@ -344,8 +386,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/about-web/distributed_session.html" rel="next" title="分布式session">
-                <i class="fa fa-chevron-left"></i> 分布式session
+              <a href="/Python_model/Slice.html" rel="next" title="Python的切片">
+                <i class="fa fa-chevron-left"></i> Python的切片
               </a>
             
           </div>
@@ -353,10 +395,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Python_model/Slice.html" rel="prev" title="Python的切片">
-                Python的切片 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
